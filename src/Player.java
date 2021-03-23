@@ -1,8 +1,9 @@
 
 public class Player {
     private String namaPlayer;
-    private boolean statusPlayer;
+    private boolean statusPlayer = false;
     private PlayerCardList playerCards; 
+
 
 
     public Player(String namaPlayer, PlayerCards playerCards){
