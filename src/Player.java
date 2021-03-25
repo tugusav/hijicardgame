@@ -1,10 +1,8 @@
 
 public class Player {
     private String namaPlayer;
-    private boolean statusPlayer = false;
-    private PlayerCardList playerCards; 
-
-
+    private boolean isPlaying = false;
+    private PlayerCards playerCards; 
 
     public Player(String namaPlayer, PlayerCards playerCards){
         //Konstruktor dari class player
@@ -16,13 +14,13 @@ public class Player {
         //untuk nge-return nama player yang sedang bermain (giliran)
     }
 
-    public void showListCards(){
-        PlayerCards.showListCards();
+    public void showPlayerCards(){
+        this.playerCards.showListCards();
          //Ini belum kebayang banget sih tapi gw coba buat implementasi di PlayerCards
     }
        
     public  void getNumCards(){
-        PlayerCards.getNumCards();
+        this.playerCards.getNumCards();
         //gatau ini wkwkw bener ga ye
     }
 }
