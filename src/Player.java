@@ -19,8 +19,11 @@ public class Player {
          //Ini belum kebayang banget sih tapi gw coba buat implementasi di PlayerCards
     }
        
-    public  void getNumCards(){
-        this.playerCards.getNumCards();
+    public int getNumCards(){
+        return this.playerCards.getNumCards();
         //gatau ini wkwkw bener ga ye
+    }
+    public boolean isPlaying(){
+        return isPlaying;
     }
 }
