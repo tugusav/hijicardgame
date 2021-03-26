@@ -1,4 +1,4 @@
-package Hiji;
+//package Hiji;
 
 public class Color {
     //Dibuat untuk membuat color tiap kartu

@@ -1,4 +1,4 @@
-package Hiji;
+//package Hiji;
 
 public class InvalidColorException extends Exception{
     //Digunakan di class Color, buat object Color yang warnanya udah ditentukan
