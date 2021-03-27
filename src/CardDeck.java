@@ -1,9 +1,11 @@
 import java.security.GeneralSecurityException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
-public class CardDeck {
-    List<Card> deck = new ArrayList<>(108);
+public class CardDeck{
+    private List<Card> deck = new ArrayList<>(108);
     
     public CardDeck(){
         generateCards();
@@ -69,4 +71,31 @@ public class CardDeck {
         return deck.size();
     }
 
+    public void shuffleCard(){
+        Collections.shuffle(this.deck);
+    }
+
+    public List<Card> assignCardsToPlayer(){
+        List<Card> handCards = new ArrayList<>();
+        int deckSize = deck.size();
+        PlayerCards handCardsList;
+            if(deck.size() < 7){
+                try{
+                    throw new NotEnoughCardsException();
+                }catch(NotEnoughCardsException e){
+                    System.err.println(e.getErrorMessage());
+                }
+            }else {
+                for(int i = 0; i < 7; i++){
+                    Card theCard = deck.get(i);
+                    deck.remove(i);
+                    handCards.add(theCard);
+                }
+                  
+            }
+            return handCards;
+        }
+    
+        
 }
+
