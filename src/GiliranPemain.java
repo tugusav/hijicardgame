@@ -1,14 +1,17 @@
 import java.util.Arrays;
+import java.util.List;
+import java.util.ArrayList;
 import java.util.stream.Stream;
 
 
 public class GiliranPemain {
     private Arah arah = Arah.SEARAH_JARUM_JAM;
     private int giliran = 0; //var untuk pemain yang dapet giliran saat ini
-    private final Player[] players;
+    //private final Player[] players;
+    private List<Player> giliranplayers = new ArrayList<>();
     //
-    public GiliranPemain(Player[] players) {
-        this.players = players;
+    public GiliranPemain(List<Player> giliranplayers) {
+        this.giliranplayers = giliranplayers;
     }
 
     public void reverseArah() {
@@ -22,14 +25,14 @@ public class GiliranPemain {
 
     private int getNextIndex() {
         var increment = arah == Arah.SEARAH_JARUM_JAM ? 1 : -1;
-        return (players.length + giliran + increment) % players.length;
+        return (giliranplayers.length + giliran + increment) % giliranplayers.length;
     }
 
     public Player getGiliranPlayer() {
-        return players[giliran];
+        return giliranplayers[giliran];
     }
     
     public Stream<Player> stream() {
-        return Arrays.stream(players);
+        return Arrays.stream(giliranplayers);
     }
 }
