@@ -11,8 +11,9 @@ public class CardDeck {
 
     public void generateCards(){
         generateNumbers();
-        generateSpecial();
         generateActionCards();
+        generateSpecial();
+        
     }
 
     public void generateNumbers(){
@@ -26,6 +27,7 @@ public class CardDeck {
         colors.add(blue);
         colors.add(yellow);
         for(var color: colors){
+            deck.add(new Angka(0, color));
             for(int i = 1; i <= 9; i++){
                 deck.add(new Angka(i, color));
                 deck.add(new Angka(i, color));
@@ -53,7 +55,7 @@ public class CardDeck {
     }
     public void generateSpecial(){
         Color wild = new Color("WILD");
-        for (int i = 0; i < 2; i++){
+        for (int i = 0; i < 4; i++){
             deck.add(new Special(wild, "WILD COLOR"));
             deck.add(new Special(wild, "WILD DRAW FOUR"));
         }
@@ -61,6 +63,10 @@ public class CardDeck {
     
     public Card peekTopCard(){
         return deck.get(deck.size()-1);
+    }
+    
+    public int getTotalDeck(){
+        return deck.size();
     }
 
 }
