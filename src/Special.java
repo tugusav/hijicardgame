@@ -1,13 +1,16 @@
 public class Special extends Card {
-    String special;
+    private String special;
     //special consist of wildcard and draw4 card
 
     //ini masih salah sih constructor special nya
     public Special(Color wild, String special) {
+        // special = wildcard / draw 4
+        // type = special
         /* ini bingung nge supernya gmn soalnya kan special itu colornya semua jenis
         trs kalo special ini di-getColor in jadi punya warna dong(?)
         */
-        super(wild, special);
+        super(wild.getColor(), "SPECIAL");
+        this.special = special; 
 
     }
     /* masih blm ngerti jadi di-comment dulu
@@ -31,7 +34,7 @@ public class Special extends Card {
     public boolean equals(Object o) {
         if (o instanceof Special) {
             Special c = (Special) o;
-            if (special == c.getSpecial()) {
+            if (this.getSpecial() == c.getSpecial()) {
                 return true;
             }
         }
@@ -40,6 +43,6 @@ public class Special extends Card {
     @Override
     public String getType() {
         // TODO Auto-generated method stub
-        return this.type + " " + this.special;
+        return this.getSpecial();
     }
 }

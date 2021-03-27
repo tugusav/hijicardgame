@@ -26,6 +26,6 @@ public class Angka extends Card{
     @Override
     public String getType() {
         // TODO Auto-generated method stub
-        return this.number + " " + this.color;
+        return this.number + " " + this.getColor();
     }
 }

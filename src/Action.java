@@ -1,5 +1,5 @@
 public class Action extends Card {
-    String action;
+    private String action;
     // action consist of skip, reverse, and draw2 card
 
     public Action(Color color, String action) {
@@ -34,7 +34,7 @@ public class Action extends Card {
     public boolean equals(Object o) {
         if (o instanceof Action) {
             Action c = (Action) o;
-            if (color == c.getColor() && action == c.getAction()) {
+            if (this.getColor() == c.getColor() && this.getAction() == c.getAction()) {
                 return true;
             }
         }
@@ -43,6 +43,6 @@ public class Action extends Card {
     @Override
     public String getType() {
         // TODO Auto-generated method stub
-        return this.action + " " + this.color;
+        return this.getAction() + " " + this.getColor();
     }
 }
