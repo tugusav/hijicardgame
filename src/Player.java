@@ -29,4 +29,7 @@ public class Player {
     public boolean isPlaying(){
         return isPlaying;
     }
+    public void setPlayerCards(PlayerCards playerCards){
+        this.playerCards = playerCards;
+    }
 }

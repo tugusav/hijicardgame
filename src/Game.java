@@ -62,10 +62,5 @@ public class Game {
     public void setWinner(Player player){
         winner = player;
     }
-
     //public boolean 
-
-
-    
-    
 }

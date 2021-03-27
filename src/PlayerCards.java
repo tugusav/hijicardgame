@@ -13,7 +13,6 @@ public class PlayerCards{
         return this.numCards;
     }
 
-
     public void drawCard(List<Card> drawedCards){
         for(int i = 0; i<drawedCards.size();i++){
         //Nambahin berupa list of cards (kalo nambah kartunya banyak)
@@ -50,6 +49,11 @@ public class PlayerCards{
     public void showListCards(){
         for(int i = 0; i < playerCards.size(); i++){
             System.out.println(i+1 + ". " + playerCards.get(i).getType());
+        }
+    }
+    public void addPlayerCards(List<Card> shuffledCard){
+        for(int i = 0; i < shuffledCard.size(); i++){
+            this.playerCards.add(shuffledCard.get(i));
         }
     }
 }
