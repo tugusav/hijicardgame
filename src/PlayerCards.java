@@ -15,12 +15,19 @@ public class PlayerCards{
     public void drawCard(Card drawCard){
         playerCards.add(drawCard);
         //Ini bakal add one element di akhir list gitu, reference dari geeks for geeks
-        //Ini belum selese nunggu kelas card selese
     }
 
     public void discardCard(Card currentCard) {
-        //ini belum kebayang jujur AWKAOWAKWOAKWO
+        playerCards.remove(currentCard);
+        //ini bakal remove ato ngeluarin kartu yang akan digunakan di permainan HIJI
+    }
 
+    public void discardCard(Type cardNdemolish){
+        while(playerCards.contains(cardNdemolish)){
+            playerCards.remove(cardNdemolish);
+        }
+        //Kepikirannya jadi pake while dia buat ngecek gitu kalo ada kartu yang tipenya sama atau ngga, kalau ada dia return true
+        //, terus lanjut ngeremove object card nya
     }
 
     public void printNumCards(Player player){
