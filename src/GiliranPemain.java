@@ -1,7 +1,7 @@
-import java.util.Arrays;
+//import java.util.Arrays;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.stream.Stream;
+//import java.util.stream.Stream;
 
 
 public class GiliranPemain {
@@ -25,14 +25,15 @@ public class GiliranPemain {
 
     private int getNextIndex() {
         var increment = arah == Arah.SEARAH_JARUM_JAM ? 1 : -1;
-        return (giliranplayers.length + giliran + increment) % giliranplayers.length;
+        return (giliranplayers.size() + giliran + increment) % giliranplayers.size();
     }
 
     public Player getGiliranPlayer() {
-        return giliranplayers[giliran];
+        return giliranplayers.get(giliran);
+
     }
     
-    public Stream<Player> stream() {
-        return Arrays.stream(giliranplayers);
-    }
+    //public Stream<Player> stream() {
+    //    return Arrays.stream(giliranplayers);
+    //}
 }
