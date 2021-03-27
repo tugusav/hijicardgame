@@ -17,7 +17,7 @@ public class Game {
     public void getPlayers(){
         for(int i = 1; i <= players.size(); i++){
             System.out.println("Pemain " + i + ": " + players.get(i).getNamePlayer());
-            System.out.println("Jumlah Kartu: " + players.get(i).getNumCards());
+            System.out.println("Jumlah Kartu: " + players.get(i).getTotalPlayerCards());
             if(players.get(i).isPlaying()){
                 System.out.println("Sedang giliran");
             } else {
