@@ -23,4 +23,9 @@ public class Angka extends Card{
     public boolean equals(Object o){
         return this == o;
     }
+    @Override
+    public String getType() {
+        // TODO Auto-generated method stub
+        return this.number + " " + this.color;
+    }
 }

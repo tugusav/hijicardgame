@@ -12,9 +12,10 @@ public abstract class Card {
     public String getColor(){
         return color;
     }
-    public String getType(){
-        return type;
-    }
+    // public String getType(){
+    //     return type;
+    // }
+    public abstract String getType();
     public abstract boolean equals(Object o);
 
 }

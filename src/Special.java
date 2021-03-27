@@ -37,4 +37,9 @@ public class Special extends Card {
         }
         return false;
     }
+    @Override
+    public String getType() {
+        // TODO Auto-generated method stub
+        return this.type + " " + this.special;
+    }
 }
