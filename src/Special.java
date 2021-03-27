@@ -3,11 +3,11 @@ public class Special extends Card {
     //special consist of wildcard and draw4 card
 
     //ini masih salah sih constructor special nya
-    public Special(Color color, String special) {
+    public Special(Color wild, String special) {
         /* ini bingung nge supernya gmn soalnya kan special itu colornya semua jenis
         trs kalo special ini di-getColor in jadi punya warna dong(?)
         */
-        super(color.getColor(), special);
+        super(wild, special);
 
     }
     /* masih blm ngerti jadi di-comment dulu
