@@ -1,8 +1,8 @@
 //import java.util.Arrays;
 
 public abstract class Card {
-    private final String color;
-    private final String type;
+    final String color; //ini kalo di-private gabisa diakses sama subclass nya
+    final String type; //ini kalo di-private gabisa diakses sama subclass nya
 
     public Card(String color, String type){
         this.color = color;
