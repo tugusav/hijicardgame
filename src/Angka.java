@@ -20,9 +20,10 @@ public class Angka extends Card{
         return number;
     }
 
-    public boolean equals(Object o){
-        return this == o;
+    public boolean equals(Object o) {
+        return this.getColor().equals(((Angka) o).getColor()) && this.getType().equals(((Angka) o).getType());
     }
+
     @Override
     public String getType() {
         // TODO Auto-generated method stub
