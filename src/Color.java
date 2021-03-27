@@ -6,7 +6,8 @@ public class Color {
 
     public Color(String color) {
         if (color.equals("RED") || color.equals("GREEN")
-                || color.equals("BLUE") || color.equals("YELLOW")){
+                || color.equals("BLUE") || color.equals("YELLOW")
+                || color.equals("WILD")){
             this.color = color;
         }else{
             try{
