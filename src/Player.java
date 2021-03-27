@@ -13,13 +13,16 @@ public class Player {
         return this.namaPlayer;
         //untuk nge-return nama player yang sedang bermain (giliran)
     }
+    public PlayerCards getPlayerCards(){
+        return this.playerCards;
+    }
 
     public void showPlayerCards(){
         this.playerCards.showListCards();
          //Ini belum kebayang banget sih tapi gw coba buat implementasi di PlayerCards
     }
        
-    public int getNumCards(){
+    public int getTotalPlayerCards(){
         return this.playerCards.getNumCards();
         //gatau ini wkwkw bener ga ye
     }
