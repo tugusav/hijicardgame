@@ -58,8 +58,8 @@ public class CardDeck{
     public void generateSpecial(){
         Color wild = new Color("WILD");
         for (int i = 0; i < 4; i++){
-            deck.add(new Special(wild, "WILD COLOR"));
-            deck.add(new Special(wild, "WILD DRAW FOUR"));
+            deck.add(new Special(wild, "WILDCOLOR"));
+            deck.add(new Special(wild, "DRAW 4"));
         }
     }
     
