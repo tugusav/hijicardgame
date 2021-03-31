@@ -62,5 +62,15 @@ public class Game {
     public void setWinner(Player player){
         winner = player;
     }
-    //public boolean 
+    public boolean iniHiji(Player currentPlayer){
+        if (currentPlayer.getTotalPlayerCards() == 1){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    public void declareHiji(){
+        //Ini belum kebayang nanti gw coba akalin lagi deh wkwkw
+
+    }
 }
