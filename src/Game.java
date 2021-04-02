@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Stack;
 
 public class Game {
@@ -35,24 +36,26 @@ public class Game {
         return discardPile.peek();
     }
 
-    public List<Card> drawCards(Player player, int numberOfCards){
-        List<Card> drawnCards = new ArrayList<>();
-        int size = drawPile.size();
-        
-        for(int i = 0; i < numberOfCards; i++){
-            drawnCards.add(drawPile.get(size-i)); 
-            // ngambil dari paling belakang (ini implementasi bukan blackhole), mungkin bisa tambahin method/bikin class drawPile
+    public void drawCards(int numberOfCards){
+        if (numberOfCards == 2){
+            generateRandomCard();
+            generateRandomCard();
+        }else if (numberOfCards == 4){
+            generateRandomCard();
+            generateRandomCard();
+            generateRandomCard();
+            generateRandomCard();
+        }else{
+            generateRandomCard();
         }
-
-        return drawnCards;
     }
 
-    public void drawTwo(Player player){
-        drawCards(player, 2);
+    public void drawTwo(){
+        drawCards(2);
     }
 
-    public void drawFour(Player player){
-        drawCards(player, 4);
+    public void drawFour(){
+        drawCards(4);
     }
     
     public boolean isGameOver(){
@@ -73,4 +76,42 @@ public class Game {
         //Ini belum kebayang nanti gw coba akalin lagi deh wkwkw
 
     }
+
+    public void generateRandomCard(){
+        String[] tipe = {"NUMBERS", "ACTION", "SPECIAL"};
+        String[] warna = {"RED", "GREEN", "BLUE", "YELLOW"};
+        String[] tipeAct = {"SKIP", "REVERSE", "DRAW 2"};
+        String[] tipeSpec = {"WILDCOLOR", "DRAW 4"};
+        String[] warnaSpes = {"WILD"};
+        Integer[] ang = {0,1,2,3,4,5,6,7,8,9};
+    
+        Random rand = new Random();
+
+        int randnum1 = rand.nextInt((2-0) + 1) + 0;
+        int randnum2 = rand.nextInt((3-0) + 1) + 0;
+        int randnum3 = rand.nextInt((9-0) + 1) + 0;
+        int randnum4 = rand.nextInt((2-0) + 1) + 0;
+        int randnum5 = rand.nextInt((1-0) + 1) + 0;
+
+        if (randnum1 == 2){
+            Special spesial = new Special(new Color(warnaSpes[0]), tipeSpec[randnum5]);
+        }
+        else if (randnum1 == 1){
+            Action action = new Action(new Color(warna[randnum2]), tipeAct[randnum4]);
+        }else {
+            Angka angka = new Angka(ang[randnum3],new Color (warna[randnum2]));
+        }
+
+
+    }
+
+    public void showListPlayer(int banyakPlayer, Player player){
+        for(int i = 0; i < banyakPlayer; i++){
+            System.out.printf("Pemain %d", i, ": %s", player.getNamePlayer());
+            System.out.printf("Jumlah Kartu: %d", player.getPlayerCards());
+            //Gw bingung anuin giliran pemainnya :( duh maap gais gw lagi bego banget :(
+        }
+
+    }
+
 }
