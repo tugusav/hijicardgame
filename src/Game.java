@@ -9,7 +9,8 @@ public class Game {
     public Stack<Card> discardPile = new Stack<>(); // untuk dapat melihat top of stack
     public List<Player> players = new ArrayList<>(); // list of players
     public Player winner = null;
-
+    public Player curPlayer;
+    public Arah arah = Arah.SEARAH_JARUM_JAM;
     public Game(List<Card> drawPile, List<Player> players){
         this.drawPile = drawPile;
         this.players = players;
@@ -65,15 +66,21 @@ public class Game {
     public void setWinner(Player player){
         winner = player;
     }
-    public boolean iniHiji(Player currentPlayer){
+
+    public boolean isLeft1Card(Player currentPlayer){
         if (currentPlayer.getTotalPlayerCards() == 1){
             return true;
         }else{
             return false;
         }
     }
+
     public void declareHiji(){
-        //Ini belum kebayang nanti gw coba akalin lagi deh wkwkw
+        if (isLeft1Card(curPlayer)) {
+            System.out.println("HIJI");
+        } else {
+            drawTwo();
+        }
 
     }
 
@@ -105,6 +112,21 @@ public class Game {
 
     }
 
+    public void viewPlayerInTurn() {
+        for(int i = 1; i <= players.size(); i++){
+            if (players.get(i).isPlaying()) {
+                System.out.println("Player dalam giliran: " + players.get(i).getNamePlayer());
+                if (arah == Arah.SEARAH_JARUM_JAM) {
+                    System.out.println("Player selanjutnya: " + players.get((i+1) % players.size()).getNamePlayer());
+                } else {
+                    System.out.println("Player selanjutnya: " + players.get((i-1 + players.size()) % players.size()).getNamePlayer());
+                }
+            } else {
+
+            }
+        }
+    }
+
     public void showListPlayer(int banyakPlayer, Player player){
         for(int i = 0; i < banyakPlayer; i++){
             System.out.printf("Pemain %d", i, ": %s", player.getNamePlayer());
@@ -113,5 +135,4 @@ public class Game {
         }
 
     }
-
 }
