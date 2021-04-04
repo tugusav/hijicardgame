@@ -1,3 +1,4 @@
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -26,12 +27,15 @@ public class Game {
         CardDeck deck = new CardDeck();
         boolean isHiji = false; //  menentukan game masih berjalan atau tidak
         Stack<Card> discardPile = new Stack<>(); // untuk dapat melihat top of stack
-        Card curCard;
+        Card curCard; // kartu yang ada di discardPile paling atas
         ArrayListGenerics<Player> players = new ArrayListGenerics<>(); // list of players
         Player winner = null;
         Player curPlayer;
         Arah arah = Arah.SEARAH_JARUM_JAM;
-
+        GiliranPemain listPemain = new GiliranPemain(players, arah);
+        Random randomizer = new Random();
+        Game game = new Game();
+        Card discardedCard;
         System.out.println("-------WELCOME TO HIJI GAMES-------");
         System.out.println("1. HELP");
         System.out.println("2. START");
@@ -46,19 +50,32 @@ public class Game {
             }
             else if (commando.equals("START"))
             {   
+                // Memasukkan jumlah pemain
                 System.out.println("Masukkan jumlah pemain :");
                 int numPlayers = input.nextInt();
                 while (numPlayers>6 || numPlayers<2) {
                     System.out.println("Jumlah pemain tidak valid, jumlah pemain harus diantara 2-6");
                     numPlayers = input.nextInt();
                 }
-                
+                // membuat pemain & membagikan kartu
                 players = GameBuilder.generatePlayers(numPlayers, deck);
                 System.out.println("Dealer membagi kartu...");
                 Thread.sleep(3000);
+                // memilih orang pertama untuk bermain
+                int indexGiliran = randomizer.nextInt(((numPlayers-1) - 0) + 1) + 0;
+                // rand.nextInt((max - min) + 1) + min -> untuk random dengan range min-max
+                // memasang giliran pemain di listPemain
+                listPemain.setGiliran(indexGiliran);
+                // memasang current player pertama
+                curPlayer = listPemain.getGiliranPlayer();
+                curPlayer.setIsPlaying(); // sekarang pemain sedang bermain
 
-                
+                // generate kartu yang akan dimainkan pertama
+                System.out.println("Pemain pertama yang akan bermain adalah " + curPlayer.getNamePlayer());
+                curCard = game.generateFirstCard();
+                System.out.println("Anda sedang bermain sebagai " + curPlayer.getNamePlayer());
 
+                System.out.println("Masukkan angka menu yang ingin kamu lakukan!");
                 System.out.println("1. List Cards");
                 System.out.println("2. Discard");
                 System.out.println("3. Draw");
@@ -68,14 +85,38 @@ public class Game {
                 System.out.println("7. Help");
                 System.out.println("8. EXIT");
 
-                Scanner input = new Scanner(System.in);
-                String command = input.next();
+                int command = input.nextInt();
 
-                Switch(command){
+                switch(command){
                     case 1:
-                        listplayer();
-
+                        curPlayer.getPlayerCards().showListCards();
                     case 2:
+                        String option;
+                        do  {
+                            System.out.println("Masukkan kartu yang ingin kamu mainkan: ");
+                            curPlayer.getPlayerCards().showListCards(); //ngeprint list kartu
+                            int pilihan = input.nextInt();
+                            while (pilihan > curPlayer.getTotalPlayerCards() || pilihan < 1){
+                                System.out.println("Range pilihan tidak valid! Masukkan pilihan lagi: ");
+                                pilihan = input.nextInt();
+                            }
+                            // ArrayListGenerics<Card> cardsToDiscard = new ArrayListGenerics<>();
+                            discardedCard = curPlayer.getPlayerCards().getCard(pilihan-1);
+                            if(!game.isCardValid(curCard, discardedCard)){
+                                System.out.println("Kartu yang kamu pilih tidak valid!");
+                            } else {
+                                curCard = discardedCard; // ngeliat paling atas di discarded pile
+                                curPlayer.getPlayerCards().discardCard(discardedCard);
+                                System.out.println("Kartu berhasil di discard!");
+                            }
+                            System.out.println("Apakah kamu ingin mengeluarkan kartu lagi? (y/n): ");
+                            option = input.nextLine(); // y/n
+                            }while(!option.equals("n"));
+                        }
+                        
+                        
+                        
+
                         Game.discard();
                     case 3:
                         Game.drawCards()
@@ -110,8 +151,20 @@ public class Game {
         }
     }
 
-    public void discard(List<Card> discarded){
-        discardPile.addAll(discarded); // menambahkan seluruh kartu ke discard
+    public boolean isCardValid(Card currentCard, Card playedCard){
+        if(currentCard instanceof Special){
+            return true;
+        } else {
+            return currentCard.equals(playedCard);
+        }
+    }
+
+    public void discard(Card currentCard, Card discardCard){
+
+        curCard = discardedCard; // ngeliat paling atas di discarded pile
+        curPlayer.getPlayerCards().discardCard(discardedCard);
+        
+        
     }
 
     public Card peekTopCard(){
@@ -120,17 +173,20 @@ public class Game {
     }
 
     public void drawCards(int numberOfCards){
-        if (numberOfCards == 2){
-            generateRandomCard();
-            generateRandomCard();
-        }else if (numberOfCards == 4){
-            generateRandomCard();
-            generateRandomCard();
-            generateRandomCard();
-            generateRandomCard();
-        }else{
+        for(int i=0; i < numberOfCards; i++){
             generateRandomCard();
         }
+        // if (numberOfCards == 2){
+        //     generateRandomCard();
+        //     generateRandomCard();
+        // }else if (numberOfCards == 4){
+        //     generateRandomCard();
+        //     generateRandomCard();
+        //     generateRandomCard();
+        //     generateRandomCard();
+        // }else{
+        //     generateRandomCard();
+        // }
     }
 
     public void drawTwo(){
@@ -146,7 +202,7 @@ public class Game {
     }
 
     public void setWinner(Player player){
-        winner = player;
+        this.winner = player;
     }
 
     public boolean isLeft1Card(Player currentPlayer){
@@ -166,13 +222,26 @@ public class Game {
 
     }
 
-    public void generateRandomCard(){
+    public Card generateFirstCard(){
+        String[] warna = {"RED", "GREEN", "BLUE", "YELLOW"};
+        Card randomCard;
+
+        Random rand = new Random();
+        int randnum1 = rand.nextInt((3-0) + 1) + 0;
+        int randnum2 = rand.nextInt((9-0) + 1) + 0;
+        
+        randomCard = new Angka(randnum2, new Color(warna[randnum1]));
+        return randomCard;
+
+    }
+    public Card generateRandomCard(){
         String[] tipe = {"NUMBERS", "ACTION", "SPECIAL"};
         String[] warna = {"RED", "GREEN", "BLUE", "YELLOW"};
         String[] tipeAct = {"SKIP", "REVERSE", "DRAW 2"};
         String[] tipeSpec = {"WILDCOLOR", "DRAW 4"};
         String[] warnaSpes = {"WILD"};
         Integer[] ang = {0,1,2,3,4,5,6,7,8,9};
+        Card randomCard;
     
         Random rand = new Random();
 
@@ -183,13 +252,14 @@ public class Game {
         int randnum5 = rand.nextInt((1-0) + 1) + 0;
 
         if (randnum1 == 2){
-            Special spesial = new Special(new Color(warnaSpes[0]), tipeSpec[randnum5]);
+            randomCard = new Special(new Color(warnaSpes[0]), tipeSpec[randnum5]);
         }
         else if (randnum1 == 1){
-            Action action = new Action(new Color(warna[randnum2]), tipeAct[randnum4]);
+            randomCard = new Action(new Color(warna[randnum2]), tipeAct[randnum4]);
         }else {
-            Angka angka = new Angka(ang[randnum3],new Color (warna[randnum2]));
+            randomCard = new Angka(ang[randnum3],new Color (warna[randnum2]));
         }
+        return randomCard;
 
 
     }
@@ -274,6 +344,7 @@ public class Game {
             } else {
                 System.out.println("Teu bener sia teh!\n");
             }
+
         }
     }
 }
