@@ -95,7 +95,5 @@ public class CardDeck{
             }
             return handCards;
         }
-    
-        
 }
 
