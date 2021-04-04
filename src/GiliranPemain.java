@@ -8,11 +8,13 @@ public class GiliranPemain {
     private Arah arah = Arah.SEARAH_JARUM_JAM;
     private int giliran = 0; //var untuk pemain yang dapet giliran saat ini
     //private final Player[] players;
-    private List<Player> giliranplayers = new ArrayList<>();
+    private ArrayListGenerics<Player> giliranplayers = new ArrayListGenerics<>();
     //
-    public GiliranPemain(List<Player> giliranplayers) {
+    public GiliranPemain(ArrayListGenerics<Player> giliranplayers) {
         this.giliranplayers = giliranplayers;
     }
+
+    public ArrayListGenerics 
 
     public void reverseArah() {
         arah = Arah.BERLAWANAN_JARUM_JAM;

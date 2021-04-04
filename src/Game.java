@@ -5,17 +5,98 @@ import java.util.Scanner;
 import java.util.Stack;
 
 public class Game {
-    public boolean isHiji = false; //  menentukan game masih berjalan atau tidak
-    public List<Card> drawPile = new ArrayList<>(); // untuk mengambil kartu
-    public Stack<Card> discardPile = new Stack<>(); // untuk dapat melihat top of stack
-    public List<Player> players = new ArrayList<>(); // list of players
-    public Player winner = null;
-    public Player curPlayer;
-    public Arah arah = Arah.SEARAH_JARUM_JAM;
-    public Game(List<Card> drawPile, List<Player> players){
-        this.drawPile = drawPile;
-        this.players = players;
+    // public boolean isHiji = false; //  menentukan game masih berjalan atau tidak
+    // public List<Card> drawPile = new ArrayList<>(); // untuk mengambil kartu
+    // public Stack<Card> discardPile = new Stack<>(); // untuk dapat melihat top of stack
+    // public List<Player> players = new ArrayList<>(); // list of players
+    // public Player winner = null;
+    // public Player curPlayer;
+    // public Arah arah = Arah.SEARAH_JARUM_JAM;
+    // public Game(List<Card> drawPile, List<Player> players){
+    //     this.drawPile = drawPile;
+    //     this.players = players;
+    //}
+
+    public Game(){
+
     }
+
+    public static void main(String[] args) throws Exception {
+        Scanner input = new Scanner(System.in);
+        CardDeck deck = new CardDeck();
+        boolean isHiji = false; //  menentukan game masih berjalan atau tidak
+        Stack<Card> discardPile = new Stack<>(); // untuk dapat melihat top of stack
+        Card curCard;
+        ArrayListGenerics<Player> players = new ArrayListGenerics<>(); // list of players
+        Player winner = null;
+        Player curPlayer;
+        Arah arah = Arah.SEARAH_JARUM_JAM;
+
+        System.out.println("-------WELCOME TO HIJI GAMES-------");
+        System.out.println("1. HELP");
+        System.out.println("2. START");
+        System.out.println("3. EXIT");
+
+        String commando = input.next();
+
+        while (!commando.toLowerCase().equals("exit")){
+            if (commando.toLowerCase().equals("help"))
+            {
+                help();
+            }
+            else if (commando.equals("START"))
+            {   
+                System.out.println("Masukkan jumlah pemain :");
+                int numPlayers = input.nextInt();
+                while (numPlayers>6 || numPlayers<2) {
+                    System.out.println("Jumlah pemain tidak valid, jumlah pemain harus diantara 2-6");
+                    numPlayers = input.nextInt();
+                }
+                
+                players = GameBuilder.generatePlayers(numPlayers, deck);
+                System.out.println("Dealer membagi kartu...");
+                Thread.sleep(3000);
+
+                
+
+                System.out.println("1. List Cards");
+                System.out.println("2. Discard");
+                System.out.println("3. Draw");
+                System.out.println("4. Declare HIJI");
+                System.out.println("5. List Players");
+                System.out.println("6. View Player in Turn");
+                System.out.println("7. Help");
+                System.out.println("8. EXIT");
+
+                Scanner input = new Scanner(System.in);
+                String command = input.next();
+
+                Switch(command){
+                    case 1:
+                        listplayer();
+
+                    case 2:
+                        Game.discard();
+                    case 3:
+                        Game.drawCards()
+                    case 4:
+                        Game.declareHiji();
+                    case 5:
+                        Game.getPlayers();
+                    case 6:
+                        Game.curPlayer;
+                    case 7:
+                        Game.help();
+                    case 8:
+                        break;
+
+
+                }
+            }
+            System.out.println("Terimakasih sudah bermain HIJI bersama OOPah Koriya!");
+            break;
+        }
+
 
     public void getPlayers(){
         for(int i = 1; i <= players.size(); i++){
