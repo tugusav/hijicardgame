@@ -32,4 +32,12 @@ public class Player {
     public void setPlayerCards(PlayerCards playerCards){
         this.playerCards = playerCards;
     }
+
+    public void setIsPlaying(){
+        this.isPlaying = true;
+    }
+
+    public void setIsNotPlaying(){
+        this.isPlaying = false;
+    }
 }
