@@ -13,15 +13,15 @@ public class PlayerCards{
         return this.numCards;
     }
 
-    public void drawCard(List<Card> drawedCards){
+    public void addMultipleCard(List<Card> drawedCards){
         for(int i = 0; i<drawedCards.size();i++){
         //Nambahin berupa list of cards (kalo nambah kartunya banyak)
-        drawCard(drawedCards.get(i));
+        addCard(drawedCards.get(i));
         this.numCards++;
         }
     }
-    public void drawCard(Card drawCard){
-        playerCards.add(drawCard);
+    public void addCard(Card drawedCard){
+        playerCards.add(drawedCard);
         //Ini bakal add one element di akhir list gitu, reference dari geeks for geeks
     }
 
@@ -45,7 +45,7 @@ public class PlayerCards{
         //Ini bakal ngeluarin output berupa jumlah kartu yang dipegan oleh seorang
     }
  
-
+    
     public void showListCards(){
         for(int i = 0; i < playerCards.size(); i++){
             System.out.println(i+1 + ". " + playerCards.get(i).getType());

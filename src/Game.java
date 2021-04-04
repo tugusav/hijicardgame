@@ -119,7 +119,9 @@ public class Game {
 
                         Game.discard();
                     case 3:
-                        Game.drawCards()
+                        Card drawedCard;
+                        drawedCard = game.generateRandomCard();
+                        curPlayer.getPlayerCards().addCard(drawedCard);
                     case 4:
                         Game.declareHiji();
                     case 5:
