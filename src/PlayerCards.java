@@ -56,4 +56,9 @@ public class PlayerCards{
             this.playerCards.add(shuffledCard.get(i));
         }
     }
+
+    public Card getCard(int index){
+        return this.playerCards.get(index);
+    }
+    
 }
