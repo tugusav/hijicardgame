@@ -7,10 +7,14 @@ import java.util.Scanner;
 public class GameBuilder {
 
     public GameBuilder(){
-
+        int numPlayers = 0;
+        Scanner input = new Scanner(System.in);
+        System.out.printf("Masukkan jumlah pemain : ");
+        numPlayers = input.nextLine();
+        generatePlayers();
     }
 
-    public List<Player> generatePlayers(int numPlayers, CardDeck deck){
+    public List<Player> generatePlayers(numPlayers, CardDeck deck){
         List<Player> players = new ArrayList<>();
         Scanner input = new Scanner(System.in);
         for(int i = 0; i < numPlayers; i++){

@@ -33,6 +33,62 @@ public class App {
 
 
 
+        /*System.out.println("-------WELCOME TO HIJI GAMES-------");
+        System.out.println("1. HELP");
+        System.out.println("2. START");
+        System.out.println("3. EXIT");
+
+        Scanner input = new Scanner(System.in);
+        String commando = input.next(); 
+
+        while (!commando.equals("EXIT")){
+            if (commando.equals("HELP"))
+            {
+                help();
+            }
+            else if (commando.equals("START"))
+            {
+                GameBuilder();
+
+                System.out.println("1. List Cards");
+                System.out.println("2. Discard");
+                System.out.println("3. Draw");
+                System.out.println("4. Declare HIJI");
+                System.out.println("5. List Players");
+                System.out.println("6. View Player in Turn");
+                System.out.println("7. Help");
+                System.out.println("8. EXIT");
+
+                Scanner input = new Scanner(System.in);
+                String command = input.next();
+
+                Switch(command){
+                    case 1:
+                        listplayer();
+                    case 2:
+                        Game.discard();
+                    case 3:
+                        Game.drawCards()
+                    case 4:
+                        Game.declareHiji();
+                    case 5:
+                        Game.getPlayers();
+                    case 6:
+                        Game.curPlayer;
+                    case 7:
+                        Game.help();
+                    case 8:
+                        break;
+
+
+                }
+            }
+            System.out.println("Terimakasih sudah bermain HIJI bersama OOPah Koriya!");
+            break;
+        }*/
+
+
+
 
     }
 }

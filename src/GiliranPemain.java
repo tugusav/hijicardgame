@@ -32,15 +32,7 @@ public class GiliranPemain {
         return giliranplayers.get(giliran);
 
     }
-    
 
-
-
-
-
-
-
-    
     //public Stream<Player> stream() {
     //    return Arrays.stream(giliranplayers);
     //}
