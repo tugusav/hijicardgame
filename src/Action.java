@@ -3,8 +3,20 @@ public class Action extends Card {
     // action consist of skip, reverse, and draw2 card
 
     public Action(Color color, String action) {
-        super(color.getColor(), action);
-        this.action = action;
+        super(color.getColor(), "ACTION");
+        if(action.equals("SKIP") || action.equals("REVERSE")
+                ||action.equals("DRAW 2") ) {
+            this.action = action;
+        }else{
+            try {
+                if (!color.getColorCard()) {throw new InvalidCardException(color);}
+                else{throw new InvalidActionException(color, action);}
+            } catch(InvalidActionException e){
+                System.err.println(e.getErrorMessage());
+            } catch(InvalidCardException e){
+                e.printStackTrace();
+            }
+        }
     }
 
     /* masih blm ngerti jadi di-comment dulu
