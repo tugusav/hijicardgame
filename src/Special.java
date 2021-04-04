@@ -10,7 +10,18 @@ public class Special extends Card {
         trs kalo special ini di-getColor in jadi punya warna dong(?)
         */
         super(wild.getColor(), "SPECIAL");
-        this.special = special; 
+        if(special.equals("WILDCOLOR") || special.equals("DRAW 4")) {
+            this.special = special;
+        }else{
+            try {
+                if (!wild.getColorCard()) {throw new InvalidCardException(wild);}
+                else{throw new InvalidSpecialException(wild, special);}
+            } catch(InvalidSpecialException e){
+                System.err.println(e.getErrorMessage());
+            } catch(InvalidCardException e){
+                e.printStackTrace();
+            }
+        }
 
     }
     /* masih blm ngerti jadi di-comment dulu
@@ -34,7 +45,7 @@ public class Special extends Card {
     public boolean equals(Object o) {
         if (o instanceof Special) {
             Special c = (Special) o;
-            if (this.getSpecial() == c.getSpecial()) {
+            if (this.getSpecial().equals(c.getSpecial())) {
                 return true;
             }
         }
