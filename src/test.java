@@ -142,8 +142,6 @@ public class test {
                     case 6:
                         System.out.println("Pemain yang sedang bermain adalah: "+ " " + curPlayer.getNamePlayer());
                         System.out.println("Pemain yang akan bermain selanjutnya: "+ " " + listPemain.next().getNamePlayer());
-                        listPemain.reverseArah();
-                        System.out.println("Pemain yang akan bermain selanjutnya: "+ " " + listPemain.next().getNamePlayer());
 
                         command = input.nextInt();
                     case 7:
