@@ -58,13 +58,12 @@ public class test {
                 int indexGiliran = randomizer.nextInt(((numPlayers-1) - 0) + 1) + 0;
                 // rand.nextInt((max - min) + 1) + min -> untuk random dengan range min-max
                 // memasang giliran pemain di listPemain
-                System.out.println(indexGiliran);
-                listPemain.setGiliran(1);
+                System.out.println("GW GANTENG" + " " + indexGiliran);
+                listPemain.setGiliran(indexGiliran);
                 // memasang current player pertama
-                System.out.println("test");
 
                 curPlayer = listPemain.getGiliranPlayer();
-                System.out.println("test");
+                
 
                 curPlayer.setIsPlaying(); // sekarang pemain sedang bermain
 
@@ -122,26 +121,45 @@ public class test {
                         
 
                     //     Game.discard();
-                    // case 3:
-                    //     Card drawedCard;
-                    //     drawedCard = game.generateRandomCard();
-                    //     curPlayer.getPlayerCards().addCard(drawedCard);
-                    // case 4:
-                    //     Game.declareHiji();
-                    // case 5:
-                    //     Game.getPlayers();
-                    // case 6:
-                    //     Game.curPlayer;
-                    // case 7:
-                    //     Game.help();
+                    case 3:
+                        Card drawedCard;
+                        drawedCard = game.generateRandomCard();
+                        curPlayer.getPlayerCards().addCard(drawedCard);
+                    case 4:
+                        // Game.declareHiji();
+                    case 5:
+                        for(int i = 0; i < players.size(); i++){
+                            System.out.println("Pemain " + i + ": " + players.get(i).getNamePlayer());
+                            System.out.println("Jumlah Kartu: " + players.get(i).getTotalPlayerCards());
+                            if(players.get(i).isPlaying()){
+                                System.out.println("Sedang giliran");
+                            } else {
+                                System.out.println("Tidak sedang giliran");
+                            }
+                        }
+                        command = input.nextInt();
+                        break;
+                    case 6:
+                        System.out.println("Pemain yang sedang bermain adalah: "+ " " + curPlayer.getNamePlayer());
+                        System.out.println("Pemain yang akan bermain selanjutnya: "+ " " + listPemain.next().getNamePlayer());
+
+                        command = input.nextInt();
+                    case 7:
+                        Game.help();
+                        command = input.nextInt();
                     // default:
                     //     break;
+
+                    case 8:
+                    System.out.println("Terimakasih sudah bermain HIJI bersama OOPah Koriya!");
+                    break;
 
 
                 }
             }
-            System.out.println("Terimakasih sudah bermain HIJI bersama OOPah Koriya!");
+            // System.out.println("Terimakasih sudah bermain HIJI bersama OOPah Koriya!");
             break;
+            
         }
         // Card randomCard;
         // Game game = new Game();
