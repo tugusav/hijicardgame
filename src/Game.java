@@ -28,7 +28,7 @@ public class Game {
         boolean isHiji = false; //  menentukan game masih berjalan atau tidak
         Stack<Card> discardPile = new Stack<>(); // untuk dapat melihat top of stack
         Card curCard; // kartu yang ada di discardPile paling atas
-        ArrayListGenerics<Player> players = new ArrayListGenerics<>(); // list of players
+        List<Player> players = new ArrayList<>(); // list of players
         Player winner = null;
         Player curPlayer;
         Arah arah = Arah.SEARAH_JARUM_JAM;
@@ -58,7 +58,8 @@ public class Game {
                     numPlayers = input.nextInt();
                 }
                 // membuat pemain & membagikan kartu
-                players = GameBuilder.generatePlayers(numPlayers, deck);
+                players = GameBuilder.generatePlayers(numPlayers, deck, input);
+                listPemain.setListGiliran(players);
                 System.out.println("Dealer membagi kartu...");
                 Thread.sleep(3000);
                 // memilih orang pertama untuk bermain
@@ -74,6 +75,9 @@ public class Game {
                 System.out.println("Pemain pertama yang akan bermain adalah " + curPlayer.getNamePlayer());
                 curCard = game.generateFirstCard();
                 System.out.println("Anda sedang bermain sebagai " + curPlayer.getNamePlayer());
+                System.out.println("Generating random card...");
+                System.out.println("First card to play is: " + curCard.getType() +"!");
+                System.out.println("What will you do?");
 
                 System.out.println("Masukkan angka menu yang ingin kamu lakukan!");
                 System.out.println("1. List Cards");
@@ -113,11 +117,6 @@ public class Game {
                             option = input.nextLine(); // y/n
                             }while(!option.equals("n"));
                         }
-                        
-                        
-                        
-
-                        Game.discard();
                     case 3:
                         Card drawedCard;
                         drawedCard = game.generateRandomCard();
@@ -154,29 +153,188 @@ public class Game {
     }
 
     public boolean isCardValid(Card currentCard, Card playedCard){
-        if(currentCard instanceof Special){
+        if (playedCard instanceof Angka){
+            if (currentCard instanceof Angka){
+                Angka c = (Angka) currentCard;
+                Angka p = (Angka) playedCard;
+                return (c.getColor().equals(p.getColor())) && (c.getNumber() == p.getNumber());
+            } else {
+                return false;
+            }
+        } else if (playedCard instanceof Action){
+            if(currentCard instanceof Action){
+                Action c = (Action) currentCard;
+                Action p = (Action) playedCard;
+                return (c.getAction().equals(p.getAction())) && (c.getColor().equals(p.getColor()));
+            } else {
+                return false;
+            }
+        } else if (playedCard instanceof Special){
+            if (currentCard instanceof Special){
+                Special c = (Special) currentCard;
+                Special p = (Special) playedCard;
+                return c.getSpecial().equals(p.getSpecial());
+            } else {
+                return false;
+            }
+        } else{
+            return false;
+        }
+        
+    }
+
+    public boolean isCardValidNonMultipleDiscard(Card currentCard, Card playedCard, Color currentColor){
+        
+        Color cardColor = new Color(currentCard.getColor());
+        if (currentCard instanceof Special){
+            if(cardColor == currentColor){
+                return true;
+            } else {
+                return false;
+            }
+        } else if (currentCard instanceof Angka){
+            return playedCard.getColor().equals(currentCard.getColor()) || playedCard.get
+        }
+        if (playedCard instanceof Angka){
+            if (currentCard instanceof Angka){
+                Angka c = (Angka) currentCard;
+                Angka p = (Angka) playedCard;
+                return (c.getColor().equals(p.getColor())) || (c.getNumber() == p.getNumber());
+            } else {
+                return playedCard.getColor().equals(currentCard.getColor());
+            }
+        } else if (playedCard instanceof Action){
+            if(currentCard instanceof Action){
+                Action c = (Action) currentCard;
+                Action p = (Action) playedCard;
+                return (c.getAction().equals(p.getAction())) || (c.getColor().equals(p.getColor()));
+            } else {
+                return false;
+            }
+        } else if (playedCard instanceof Special){
+            // if (currentCard instanceof Special){
+            //     Special c = (Special) currentCard;
+            //     Special p = (Special) playedCard;
+            //     return c.getSpecial().equals(p.getSpecial());
+            // } else {
+            //     return false;
+            // }
             return true;
-        } else {
-            return currentCard.equals(playedCard);
+        } else{
+            return false;
         }
     }
 
-    public void discard(Card currentCard, Card discardCard){
-
-        curCard = discardedCard; // ngeliat paling atas di discarded pile
-        curPlayer.getPlayerCards().discardCard(discardedCard);
-        
-        
+    public void applyPower(int numCardsDiscarded, Card powerCard, Player currentPlayer, GiliranPemain giliran, Color currentColor, Scanner sc){
+        String[] warna = {"RED", "GREEN", "BLUE", "YELLOW"};
+        if (powerCard.getCardType().equals("DRAW 2")){
+            currentPlayer = giliran.next();
+            for(int i = 0; i < numCardsDiscarded; i++){
+                drawTwo(currentPlayer);
+            }
+        } else if(powerCard.getCardType().equals("SKIP")){
+            for(int i = 0; i < numCardsDiscarded; i++){
+                currentPlayer = giliran.skip();
+            }    
+        } else if (powerCard.getCardType().equals("REVERSE")){
+            for(int i = 0; i < numCardsDiscarded; i++){
+                giliran.reverseArah();
+            }   
+            currentPlayer = giliran.next();
+        } else if (powerCard.getCardType().equals("WILDCOLOR")){
+            System.out.println("Choose color: ");
+            for(int i=0; i < warna.length; i++){
+                System.out.println((i+1) + warna[i]);
+            }
+            int pilihan = sc.nextInt();
+            currentColor = new Color(warna[pilihan-1]);
+            currentPlayer = giliran.next();
+        } else if (powerCard.getCardType().equals("DRAW 4")){
+            System.out.println("Choose color: ");
+            for(int i=0; i < warna.length; i++){
+                System.out.println((i+1) + warna[i]);
+            }
+            int pilihan = sc.nextInt();
+            currentColor = new Color(warna[pilihan-1]);
+            currentPlayer = giliran.next();
+            for(int i = 0; i < numCardsDiscarded; i++){
+                drawFour(currentPlayer);
+            }
+        } else {
+            
+        }
     }
+
+    public void discard(Card currentCard, Player currentPlayer, Scanner sc, GiliranPemain giliran, Color currentColor){
+        boolean isMultipleDiscard = false;
+        int numDiscarded = 0;
+            String option;
+            while(!isMultipleDiscard){
+                System.out.println("Masukkan kartu yang ingin kamu mainkan: ");
+                currentPlayer.getPlayerCards().showListCards(); //ngeprint list kartu
+                int pilihan = sc.nextInt();
+                while (pilihan > currentPlayer.getTotalPlayerCards() || pilihan < 1){
+                    System.out.println("Range pilihan tidak valid! Masukkan pilihan lagi: ");
+                    pilihan = sc.nextInt();
+                }
+                // ArrayListGenerics<Card> cardsToDiscard = new ArrayListGenerics<>();
+                Card discardedCard = currentPlayer.getPlayerCards().getCard(pilihan-1);
+                if(!isCardValidNonMultipleDiscard(currentCard, discardedCard)){
+                    System.out.println("Kartu yang kamu pilih tidak valid!");
+                } else {
+                    numDiscarded += 1;
+                    currentCard = discardedCard; // ngeliat paling atas di discarded pile
+                    currentPlayer.getPlayerCards().discardCard(discardedCard);
+                    System.out.println("Kartu berhasil di discard!");
+                    currentColor = new Color(discardedCard.getColor());
+                }
+                System.out.println("Apakah kamu ingin mengeluarkan kartu lagi? (y/n): ");
+                sc.nextLine();
+                option = sc.nextLine(); // y/n
+                if(option.equals("y")){
+                    isMultipleDiscard = true;
+                } else {
+                    break;
+                }
+            }
+
+            while(isMultipleDiscard){
+                System.out.println("Masukkan kartu yang ingin kamu mainkan: ");
+                currentPlayer.getPlayerCards().showListCards(); //ngeprint list kartu
+                int pilihan = sc.nextInt();
+                while (pilihan > currentPlayer.getTotalPlayerCards() || pilihan < 1){
+                    System.out.println("Range pilihan tidak valid! Masukkan pilihan lagi: ");
+                    pilihan = sc.nextInt();
+                }
+                // ArrayListGenerics<Card> cardsToDiscard = new ArrayListGenerics<>();
+                Card discardedCard = currentPlayer.getPlayerCards().getCard(pilihan-1);
+                if(!isCardValid(currentCard, discardedCard)){
+                    System.out.println("Kartu yang kamu pilih tidak valid!");
+                } else {
+                    numDiscarded += 1;
+                    currentCard = discardedCard; // ngeliat paling atas di discarded pile
+                    currentPlayer.getPlayerCards().discardCard(discardedCard);
+                    System.out.println("Kartu berhasil di discard!");
+                    currentColor = new Color(discardedCard.getColor());
+                }
+                System.out.println("Apakah kamu ingin mengeluarkan kartu lagi? (y/n): ");
+                sc.nextLine();
+                option = sc.nextLine(); // y/n
+            }
+            applyPower(numDiscarded, currentCard, currentPlayer, giliran, currentColor, sc);
+        }
+        
+    
 
     public Card peekTopCard(){
         // untuk melihat kartu bagian atas
         return discardPile.peek();
     }
 
-    public void drawCards(int numberOfCards){
+    public void drawCards(int numberOfCards, Player player){
         for(int i=0; i < numberOfCards; i++){
-            generateRandomCard();
+            Card theCard = generateRandomCard();
+            player.getPlayerCards().addCard(theCard);
         }
         // if (numberOfCards == 2){
         //     generateRandomCard();
@@ -191,12 +349,12 @@ public class Game {
         // }
     }
 
-    public void drawTwo(){
-        drawCards(2);
+    public void drawTwo(Player player){
+        drawCards(2, player);
     }
 
-    public void drawFour(){
-        drawCards(4);
+    public void drawFour(Player player){
+        drawCards(4, player);
     }
     
     public boolean isGameOver(){
@@ -234,7 +392,6 @@ public class Game {
         
         randomCard = new Angka(randnum2, new Color(warna[randnum1]));
         return randomCard;
-
     }
     public Card generateRandomCard(){
         String[] tipe = {"NUMBERS", "ACTION", "SPECIAL"};
