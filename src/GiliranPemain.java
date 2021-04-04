@@ -8,13 +8,25 @@ public class GiliranPemain {
     private Arah arah = Arah.SEARAH_JARUM_JAM;
     private int giliran = 0; //var untuk pemain yang dapet giliran saat ini
     //private final Player[] players;
-    private ArrayListGenerics<Player> giliranplayers = new ArrayListGenerics<>();
+    private ArrayListGenerics<Player> listGiliran = new ArrayListGenerics<>();
     //
-    public GiliranPemain(ArrayListGenerics<Player> giliranplayers) {
-        this.giliranplayers = giliranplayers;
+    public GiliranPemain(ArrayListGenerics<Player> listPlayer, Arah arah){
+        this.arah = arah;
+        this.listGiliran = listPlayer;
+    }
+    
+    public void setListGiliran(ArrayListGenerics<Player> giliranplayers) {
+        this.listGiliran = giliranplayers;
     }
 
-    public ArrayListGenerics 
+    public ArrayListGenerics<Player> getGiliran(){
+        return this.listGiliran;
+    }
+
+    // public ArrayListGenerics<Player> getListPlayer(){
+    //     return this.giliranplayers;
+    // }
+    // public ArrayListGenerics<Player> getListPlayer() 
 
     public void reverseArah() {
         arah = Arah.BERLAWANAN_JARUM_JAM;
@@ -27,13 +39,19 @@ public class GiliranPemain {
 
     private int getNextIndex() {
         var increment = arah == Arah.SEARAH_JARUM_JAM ? 1 : -1;
-        return (giliranplayers.size() + giliran + increment) % giliranplayers.size();
+        return (listGiliran.size() + giliran + increment) % listGiliran.size();
     }
 
     public Player getGiliranPlayer() {
-        return giliranplayers.get(giliran);
+        return listGiliran.get(giliran);
 
     }
+
+    public void setGiliran(int giliran){
+        this.giliran = giliran;
+    }
+
+    
 
     //public Stream<Player> stream() {
     //    return Arrays.stream(giliranplayers);
