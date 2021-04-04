@@ -33,6 +33,14 @@ public class GiliranPemain {
 
     }
     
+
+
+
+
+
+
+
+    
     //public Stream<Player> stream() {
     //    return Arrays.stream(giliranplayers);
     //}
