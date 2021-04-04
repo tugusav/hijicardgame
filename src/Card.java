@@ -20,6 +20,9 @@ public abstract class Card {
     // public String getType(){
     //     return type;
     // }
+    public String getCardType(){
+        return this.type;
+    }
     public abstract String getType();
     public abstract boolean equals(Object o);
 
