@@ -14,19 +14,17 @@ public class GameBuilder {
         // generatePlayers();
     }
 
-    public static List<Player> generatePlayers(int numPlayers, CardDeck deck){
+    public static List<Player> generatePlayers(int numPlayers, CardDeck deck, Scanner sc){
         List<Player> players = new ArrayList<>();
-        Scanner input = new Scanner(System.in);
         for(int i = 0; i < numPlayers; i++){
             String name = " ";
             List<Card> handCardList = deck.assignCardsToPlayer();
             PlayerCards playerCards = new PlayerCards(handCardList);
-            System.out.printf("Masukkan nama pemain ke - %d", i+1);
-            name = input.nextLine();
+            System.out.printf("Masukkan nama pemain ke - %d: ", i+1);
+            name = sc.next();
             Player player1 = new Player(name, playerCards);
             players.add(player1);
         }
-        input.close();
         return players;
     } 
     
