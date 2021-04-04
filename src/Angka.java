@@ -26,7 +26,7 @@ public class Angka extends Card{
     public boolean equals(Object o) {
         if (o instanceof Angka) {
             Angka angka = (Angka) o;
-            return this.getColor().equals(angka.getColor()) && this.getNumber() == angka.getNumber();
+            return this.getColor().equals(angka.getColor()) || this.getNumber() == angka.getNumber();
         }
         return false;
     }

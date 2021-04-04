@@ -46,7 +46,7 @@ public class Action extends Card {
     public boolean equals(Object o) {
         if (o instanceof Action) {
             Action c = (Action) o;
-            if (this.getColor() == c.getColor() && this.getAction() == c.getAction()) {
+            if (this.getColor() == c.getColor() || this.getAction() == c.getAction()) {
                 return true;
             }
         }
