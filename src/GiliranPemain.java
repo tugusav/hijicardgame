@@ -8,18 +8,18 @@ public class GiliranPemain {
     private Arah arah = Arah.SEARAH_JARUM_JAM;
     private int giliran = 0; //var untuk pemain yang dapet giliran saat ini
     //private final Player[] players;
-    private ArrayListGenerics<Player> listGiliran = new ArrayListGenerics<>();
+    private List<Player> listGiliran = new ArrayList<>();
     //
-    public GiliranPemain(ArrayListGenerics<Player> listPlayer, Arah arah){
+    public GiliranPemain(List<Player> listPlayer, Arah arah){
         this.arah = arah;
         this.listGiliran = listPlayer;
     }
     
-    public void setListGiliran(ArrayListGenerics<Player> giliranplayers) {
+    public void setListGiliran(List<Player> giliranplayers) {
         this.listGiliran = giliranplayers;
     }
 
-    public ArrayListGenerics<Player> getGiliran(){
+    public List<Player> getGiliran(){
         return this.listGiliran;
     }
 

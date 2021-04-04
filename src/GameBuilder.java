@@ -14,8 +14,8 @@ public class GameBuilder {
         // generatePlayers();
     }
 
-    public static ArrayListGenerics<Player> generatePlayers(int numPlayers, CardDeck deck){
-        ArrayListGenerics<Player> players = new ArrayListGenerics<>();
+    public static List<Player> generatePlayers(int numPlayers, CardDeck deck){
+        List<Player> players = new ArrayList<>();
         Scanner input = new Scanner(System.in);
         for(int i = 0; i < numPlayers; i++){
             String name = " ";

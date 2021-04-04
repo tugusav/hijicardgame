@@ -13,7 +13,7 @@ public class test {
         boolean isHiji = false; //  menentukan game masih berjalan atau tidak
         Stack<Card> discardPile = new Stack<>(); // untuk dapat melihat top of stack
         Card curCard; // kartu yang ada di discardPile paling atas
-        ArrayListGenerics<Player> players = new ArrayListGenerics<>(); // list of players
+        List<Player> players = new ArrayList<>(); // list of players
         Player winner = null;
         Player curPlayer;
         Arah arah = Arah.SEARAH_JARUM_JAM;
@@ -53,8 +53,10 @@ public class test {
                 // rand.nextInt((max - min) + 1) + min -> untuk random dengan range min-max
                 // memasang giliran pemain di listPemain
                 System.out.println(indexGiliran);
-                listPemain.setGiliran(indexGiliran);
+                listPemain.setGiliran(1);
                 // memasang current player pertama
+                System.out.println("test");
+
                 curPlayer = listPemain.getGiliranPlayer();
                 System.out.println("test");
 
