@@ -20,6 +20,7 @@ public class test {
         Random randomizer = new Random();
         Game game = new Game();
         Card discardedCard;
+        Color currentColor;
         System.out.println("-------WELCOME TO HIJI GAMES-------");
         System.out.println("1. HELP");
         System.out.println("2. START");
@@ -74,6 +75,7 @@ public class test {
                 System.out.println("Generating random card...");
                 Thread.sleep(2000);
                 System.out.println("The first card is :" + curCard.getType());
+                currentColor = new Color(curCard.getColor());
 
                 System.out.println("Masukkan angka menu yang ingin kamu lakukan!");
                 System.out.println("1. List Cards");
@@ -92,29 +94,30 @@ public class test {
                         curPlayer.getPlayerCards().showListCards();
                         command = input.nextInt();
                     case 2:
-                        String option;
-                        do  {
-                            System.out.println("Masukkan kartu yang ingin kamu mainkan: ");
-                            curPlayer.getPlayerCards().showListCards(); //ngeprint list kartu
-                            int pilihan = input.nextInt();
-                            while (pilihan > curPlayer.getTotalPlayerCards() || pilihan < 1){
-                                System.out.println("Range pilihan tidak valid! Masukkan pilihan lagi: ");
-                                pilihan = input.nextInt();
-                            }
-                            // ArrayListGenerics<Card> cardsToDiscard = new ArrayListGenerics<>();
-                            discardedCard = curPlayer.getPlayerCards().getCard(pilihan-1);
-                            if(!game.isCardValid(curCard, discardedCard)){
-                                System.out.println("Kartu yang kamu pilih tidak valid!");
-                            } else {
-                                curCard = discardedCard; // ngeliat paling atas di discarded pile
-                                curPlayer.getPlayerCards().discardCard(discardedCard);
-                                System.out.println("Kartu berhasil di discard!");
-                            }
-                            System.out.println("Apakah kamu ingin mengeluarkan kartu lagi? (y/n): ");
-                            option = input.nextLine(); // y/n
-                            }while(!option.equals("n"));
-                            command = input.nextInt();
-                            break;
+                        // String option;
+                        // do  {
+                        //     System.out.println("Masukkan kartu yang ingin kamu mainkan: ");
+                        //     curPlayer.getPlayerCards().showListCards(); //ngeprint list kartu
+                        //     int pilihan = input.nextInt();
+                        //     while (pilihan > curPlayer.getTotalPlayerCards() || pilihan < 1){
+                        //         System.out.println("Range pilihan tidak valid! Masukkan pilihan lagi: ");
+                        //         pilihan = input.nextInt();
+                        //     }
+                        //     // ArrayListGenerics<Card> cardsToDiscard = new ArrayListGenerics<>();
+                        //     discardedCard = curPlayer.getPlayerCards().getCard(pilihan-1);
+                        //     if(!game.isCardValid(curCard, discardedCard)){
+                        //         System.out.println("Kartu yang kamu pilih tidak valid!");
+                        //     } else {
+                        //         curCard = discardedCard; // ngeliat paling atas di discarded pile
+                        //         curPlayer.getPlayerCards().discardCard(discardedCard);
+                        //         System.out.println("Kartu berhasil di discard!");
+                        //     }
+                        //     System.out.println("Apakah kamu ingin mengeluarkan kartu lagi? (y/n): ");
+                        //     option = input.nextLine(); // y/n
+                        //     }while(!option.equals("n"));
+                        //     command = input.nextInt();
+                        //     break;
+                        game.discard(curCard, curPlayer, input, listPemain, currentColor);
                         
                         
                         

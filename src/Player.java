@@ -40,4 +40,5 @@ public class Player {
     public void setIsNotPlaying(){
         this.isPlaying = false;
     }
+
 }
