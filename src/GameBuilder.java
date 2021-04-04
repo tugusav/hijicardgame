@@ -21,7 +21,7 @@ public class GameBuilder {
             String name = " ";
             List<Card> handCardList = deck.assignCardsToPlayer();
             PlayerCards playerCards = new PlayerCards(handCardList);
-            System.out.printf("Masukkan nama pemain ke - %i", i+1);
+            System.out.printf("Masukkan nama pemain ke - %d", i+1);
             name = input.nextLine();
             Player player1 = new Player(name, playerCards);
             players.add(player1);

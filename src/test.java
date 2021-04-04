@@ -32,6 +32,7 @@ public class test {
             if (commando.toLowerCase().equals("help"))
             {
                 Game.help();
+                commando = input.next();
             }
             else if (commando.equals("START"))
             {   
@@ -44,15 +45,19 @@ public class test {
                 }
                 // membuat pemain & membagikan kartu
                 players = GameBuilder.generatePlayers(numPlayers, deck);
+                System.out.println(players.size());
                 System.out.println("Dealer membagi kartu...");
                 // Thread.sleep(3000);
                 // memilih orang pertama untuk bermain
                 int indexGiliran = randomizer.nextInt(((numPlayers-1) - 0) + 1) + 0;
                 // rand.nextInt((max - min) + 1) + min -> untuk random dengan range min-max
                 // memasang giliran pemain di listPemain
+                System.out.println(indexGiliran);
                 listPemain.setGiliran(indexGiliran);
                 // memasang current player pertama
                 curPlayer = listPemain.getGiliranPlayer();
+                System.out.println("test");
+
                 curPlayer.setIsPlaying(); // sekarang pemain sedang bermain
 
                 // generate kartu yang akan dimainkan pertama
