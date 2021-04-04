@@ -139,4 +139,59 @@ public class Game {
     public void start(){
         
     }
+    
+    public static void help(){
+        System.out.println("\nGimana sih cara main HIJI\n" +
+                "1. HIJI dimainkan oleh 2-6 pemain.\n" +
+                "2. Di awal permainan, semua pemain akan mendapatkan 7 buah kartu, dan satu kartu angka dipilih secara acak untuk dijadikan kartu awal.\n" +
+                "3. Pemain yang akan memulai giliran pertama akan diacak.\n" +
+                "4. Pada setiap giliran, pemain boleh mengeluarkan satu atau lebih kartu yang dapat dimainkan pada giliran tersebut.\n" +
+                "5. Apabila pemain tidak mengeluarkan kartu, pemain wajib mengambil satu kartu dari infinite deck\n" +
+                "6. Apabila kartu yang baru diambil tersebut bisa dikeluarkan, pemain boleh mengeluarkan kartu tersebut (tidak wajib).\n" +
+                "7. Beberapa jenis kartu memiliki power tertentu yang dapat memengaruhi jalannya permainan\n" +
+                "8. Apabila pemain memiliki sisa satu kartu, maka pemain harus melakukan “Declare HIJI” dalam waktu 3 detik. Apabila tidak, pemain wajib mengambil dua kartu dari deck.\n" +
+                "9. Pemain dinyatakan menang apabila kartu yang dipegangnya sudah habis, dan permainan selesai.");
+
+        System.out.println("\n\nJenis Kartu HIJI\n" +
+                "1. Angka 0-9 warna Merah/Hijau/Kuning/Biru\n" +
+                "2. Draw 2 (+2) warna Merah/Hijau/Kuning/Biru\n" +
+                "3. Draw 4 (+4)\n" +
+                "4. Wildcard\n" +
+                "5. Reverse warna Merah/Hijau/Kuning/Biru\n" +
+                "6. Skip warna Merah/Hijau/Kuning/Biru\n");
+
+        Scanner sc = new Scanner(System.in);
+        int opsi; boolean option = true;
+
+        while(option) {
+            System.out.println("Pilih nomor kartu untuk info lebih lanjut : (0 untuk keluar)");
+            opsi = sc.nextInt();
+            if (opsi == 1) {
+                System.out.println("\nDapat dikeluarkan jika : Kartu yang dimainkan sebelumnya berwarna sama, atau memiliki angka yang sama.\n" +
+                        "Power : - \n");
+            } else if (opsi == 2) {
+                System.out.println("Dapat dikeluarkan jika : Kartu yang dimainkan sebelumnya berwarna sama, atau juga kartu Draw 2.\n" +
+                        "Power : Pemain selanjutnya harus mengambil 2 kartu. Apabila pemain tersebut " +
+                        "mengeluarkan Draw 2, maka pemain selanjutnya mengambil 4, dan seterusnya. Pemain yang " +
+                        "mengambil kartu tambahan kehilangan gilirannya dan dilewati. \n");
+            } else if (opsi == 3) {
+                System.out.println("Dapat dikeluarkan jika : Kapanpun\n" +
+                        "Power : Pemain selanjutnya harus mengambil 4 kartu, dan pemain " +
+                        "yang mengeluarkan kartu Draw 4 dapat memilih warna yang dapat dimainkan selanjutnya. \n");
+            } else if (opsi == 4) {
+                System.out.println("Dapat dikeluarkan jika : Kapanpun\n" +
+                        "Power : Pemain dapat memilih warna yang dapat dikeluarkan oleh pemain selanjutnya. \n");
+            } else if (opsi == 5) {
+                System.out.println("Dapat dikeluarkan jika : Kartu yang dimainkan sebelumnya berwarna sama, atau juga kartu Reverse.\n" +
+                        "Power : Urutan pemain dibalik.\n");
+            } else if (opsi == 6) {
+                System.out.println("Dapat dikeluarkan jika : Kartu yang dimainkan sebelumnya berwarna sama, atau juga kartu Skip\n" +
+                        "Power : Pemain selanjutnya dilewati (kehilangan giliran).\n");
+            } else if (opsi == 0) {
+                option = false;
+            } else {
+                System.out.println("Teu bener sia teh!\n");
+            }
+        }
+    }
 }
