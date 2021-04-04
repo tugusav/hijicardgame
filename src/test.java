@@ -5,9 +5,8 @@ import java.util.Random;
 import java.util.Scanner;
 import java.util.Stack;
 
-public class test {
-    
-    public static void main(String[] args) {
+public class test {  
+    public static void main(String[] args) throws InterruptedException {
         Scanner input = new Scanner(System.in);
         CardDeck deck = new CardDeck();
         boolean isHiji = false; //  menentukan game masih berjalan atau tidak
@@ -34,9 +33,10 @@ public class test {
                 Game.help();
                 commando = input.next();
             }
-            else if (commando.equals("START"))
+            else if (commando.toLowerCase().equals("start"))
             {   
                 // Memasukkan jumlah pemain
+                deck.shuffleCard();
                 System.out.println("Masukkan jumlah pemain :");
                 int numPlayers = input.nextInt();
                 while (numPlayers>6 || numPlayers<2) {
@@ -44,10 +44,16 @@ public class test {
                     numPlayers = input.nextInt();
                 }
                 // membuat pemain & membagikan kartu
-                players = GameBuilder.generatePlayers(numPlayers, deck);
+                players = GameBuilder.generatePlayers(numPlayers, deck, input);
+                listPemain.setListGiliran(players);
                 System.out.println(players.size());
                 System.out.println("Dealer membagi kartu...");
-                // Thread.sleep(3000);
+                Thread.sleep(3000);
+                for(Player player: players){
+                    System.out.println(player.getNamePlayer());
+                }
+                
+                
                 // memilih orang pertama untuk bermain
                 int indexGiliran = randomizer.nextInt(((numPlayers-1) - 0) + 1) + 0;
                 // rand.nextInt((max - min) + 1) + min -> untuk random dengan range min-max
@@ -66,6 +72,9 @@ public class test {
                 System.out.println("Pemain pertama yang akan bermain adalah " + curPlayer.getNamePlayer());
                 curCard = game.generateFirstCard();
                 System.out.println("Anda sedang bermain sebagai " + curPlayer.getNamePlayer());
+                System.out.println("Generating random card...");
+                Thread.sleep(2000);
+                System.out.println("The first card is :" + curCard.getType());
 
                 System.out.println("Masukkan angka menu yang ingin kamu lakukan!");
                 System.out.println("1. List Cards");
@@ -82,6 +91,7 @@ public class test {
                 switch(command){
                     case 1:
                         curPlayer.getPlayerCards().showListCards();
+                        command = input.nextInt();
                     case 2:
                         String option;
                         do  {
@@ -104,16 +114,18 @@ public class test {
                             System.out.println("Apakah kamu ingin mengeluarkan kartu lagi? (y/n): ");
                             option = input.nextLine(); // y/n
                             }while(!option.equals("n"));
+                            command = input.nextInt();
+                            break;
                         
                         
                         
                         
 
-                        // Game.discard();
-                    case 3:
-                        Card drawedCard;
-                        drawedCard = game.generateRandomCard();
-                        curPlayer.getPlayerCards().addCard(drawedCard);
+                    //     Game.discard();
+                    // case 3:
+                    //     Card drawedCard;
+                    //     drawedCard = game.generateRandomCard();
+                    //     curPlayer.getPlayerCards().addCard(drawedCard);
                     // case 4:
                     //     Game.declareHiji();
                     // case 5:
@@ -122,34 +134,34 @@ public class test {
                     //     Game.curPlayer;
                     // case 7:
                     //     Game.help();
-                    default:
-                        break;
+                    // default:
+                    //     break;
 
 
                 }
             }
-            // System.out.println("Terimakasih sudah bermain HIJI bersama OOPah Koriya!");
-            // break;
+            System.out.println("Terimakasih sudah bermain HIJI bersama OOPah Koriya!");
+            break;
         }
-    //     Card randomCard;
-    //     Game game = new Game();
-    //     randomCard = game.generateFirstCard();
-    //     System.out.println(randomCard.getType()); 
-    //     Color green = new Color("GREEN");
-    //     Color biru = new Color("BLUE");
-    //     Card card1 = new Angka(3, green);
-    //     Card card2 = new Angka(4, green);
-    //     Card card3 = new Action(green, "SKIP");
-    //     Card card4 = new Action(biru, "SKIP");
+        // Card randomCard;
+        // Game game = new Game();
+        // randomCard = game.generateFirstCard();
+        // System.out.println(randomCard.getType()); 
+        // Color green = new Color("GREEN");
+        // Color biru = new Color("BLUE");
+        // Card card1 = new Angka(3, green);
+        // Card card2 = new Angka(4, green);
+        // Card card3 = new Action(green, "SKIP");
+        // Card card4 = new Action(biru, "SKIP");
 
 
-    //     if (card4.equals(card3)){
-    //         System.out.println("ya");
-    //     } else {
-    //         System.out.println("ga");
-    //     }
-    // }
+        // if (card4.equals(card3)){
+        //     System.out.println("ya");
+        // } else {
+        //     System.out.println("ga");
+        // }
+    }
     
     }
-}    
+    
 
