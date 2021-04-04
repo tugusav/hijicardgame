@@ -37,10 +37,18 @@ public class GiliranPemain {
         return getGiliranPlayer();
     }
 
+    public Player skip() {
+        giliran = getNextIndex();
+        giliran = getNextIndex();
+        return getGiliranPlayer();
+    }
+
     private int getNextIndex() {
         var increment = arah == Arah.SEARAH_JARUM_JAM ? 1 : -1;
         return (listGiliran.size() + giliran + increment) % listGiliran.size();
     }
+
+
 
     public Player getGiliranPlayer() {
         return listGiliran.get(giliran);
