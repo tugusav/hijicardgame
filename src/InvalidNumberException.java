@@ -1,12 +1,14 @@
 //package Hiji;
 
-public class InvalidNumberException extends Exception{
+public class InvalidNumberException extends InvalidCardException{
     //Digunakan di class Angka, semisal buat kartu angka di luar range akan muncul pesan error
     // Antara 0 - 9
-    public InvalidNumberException(int number){
-        super(number + " tidak masuk range, range antara 0 - 9! " );
+    int number;
+    public InvalidNumberException(Color color,int number){
+        super(color);
+        this.number = number;
     }
     public String getErrorMessage(){
-        return InvalidNumberException.super.getMessage();
+        return "Angka " + number + " tidak valid!!!";
     }
 }
