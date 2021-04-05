@@ -22,6 +22,7 @@ public class PlayerCards{
     }
     public void addCard(Card drawedCard){
         playerCards.add(drawedCard);
+        this.numCards++;
         //Ini bakal add one element di akhir list gitu, reference dari geeks for geeks
     }
 
