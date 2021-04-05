@@ -155,7 +155,7 @@ public class Game {
         }
     }
 
-    public boolean isCardValid(Card currentCard, Card playedCard){
+    public boolean isCardValid(Card currentCard, Card playedCard, Color currentColor){
         if (playedCard instanceof Angka){
             if (currentCard instanceof Angka){
                 Angka c = (Angka) currentCard;
