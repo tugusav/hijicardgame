@@ -28,7 +28,7 @@ public class Declare {
             } else {
                 System.out.println("Next Player!!, " + curPlayer.getNamePlayer() + " Telat ngomong!");
             }
-            sc.close();
+            // sc.close();
         }
     }
     public void threading() throws InterruptedException{
