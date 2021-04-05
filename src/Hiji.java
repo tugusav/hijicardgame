@@ -96,6 +96,9 @@ public class Hiji {
                             boolean timeForPower = false;
                             int numDiscarded = 0;
                             String option = "";
+                            boolean gakJadi = false;
+                            System.out.println("Current Card: " + curCard.getType());
+                            System.out.println("Current Color: " + currentColor.getColor());
                             loop:
                             while(!isMultipleDiscard){  
                                 System.out.println("Masukkan kartu yang ingin kamu mainkan: ");
@@ -124,6 +127,7 @@ public class Hiji {
                                 if(numDiscarded == 0){
                                     //belum ambil kartu
                                     isMultipleDiscard = false;
+                                    gakJadi = true;
                                     break loop;
                                 } else {
                                     if(option.equals("y")){
@@ -148,7 +152,7 @@ public class Hiji {
                                 discardedCard = curPlayer.getPlayerCards().getCard(pilihan-1);
                                 System.out.println(discardedCard.getType());
                                 System.out.println(curCard.getType());
-                                if(!game.isCardValid(curCard, discardedCard)){
+                                if(!game.isCardValid(curCard, discardedCard, currentColor)){
                                     System.out.println("Kartu yang kamu pilih tidak valid!");
                                 } else {
                                     numDiscarded += 1;
@@ -162,13 +166,22 @@ public class Hiji {
                                 option = input.nextLine(); // y/n
                                 if(option.equals("n")){
                                     isMultipleDiscard = false;
-                                } else {
-                                    isMultipleDiscard = true;
                                     timeForPower = true;
                                     break loop2;
+                                } else {
+                                    isMultipleDiscard = true;
                                 }
                             }
-                            if(numDiscarded < 1){
+                            if(numDiscarded < 1 && !isMultipleDiscard){
+                                Card drawedCard;
+                                drawedCard = game.generateRandomCard();
+                                curPlayer.getPlayerCards().addCard(drawedCard);
+                                System.out.println("Kartu kamu bertambah 1!");
+                                System.out.println("giliran kamu diakhiri !");
+                                curPlayer.setIsNotPlaying();
+                                curPlayer = listPemain.next();
+                                curPlayer.setIsPlaying();
+                                System.out.println("Sekarang yang main adalah " + curPlayer.getNamePlayer());
                                 System.out.println("Masukkan command yang ingin kamu lakukan!");
                                 command = input.nextInt();
                                 break;
@@ -201,7 +214,7 @@ public class Hiji {
                                         if (c.getSpecial().equals("WILDCOLOR")){
                                             System.out.println("Choose color: ");
                                             for(int i=0; i < warna.length; i++){
-                                                System.out.println((i+1) + warna[i]);
+                                                System.out.println((i+1) + ". "+ warna[i]);
                                             }
                                             int pilihan = input.nextInt();
                                             currentColor = new Color(warna[pilihan-1]);
@@ -242,6 +255,7 @@ public class Hiji {
                             curPlayer = listPemain.next();
                             curPlayer.setIsPlaying();
                             System.out.println("Sekarang yang main adalah " + curPlayer.getNamePlayer());
+                            break;
                         default:
                             break;
                         }
