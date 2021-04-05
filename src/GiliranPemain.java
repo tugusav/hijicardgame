@@ -29,7 +29,13 @@ public class GiliranPemain {
     // public ArrayListGenerics<Player> getListPlayer() 
 
     public void reverseArah() {
+    if (arah == Arah.SEARAH_JARUM_JAM){
         arah = Arah.BERLAWANAN_JARUM_JAM;
+    }
+    else{
+        arah = Arah.SEARAH_JARUM_JAM;
+    }
+        
     }
     
     public Player next() {
@@ -43,8 +49,19 @@ public class GiliranPemain {
         return getGiliranPlayer();
     }
 
+    // private int getNextIndex() {
+    //     var increment = arah == Arah.SEARAH_JARUM_JAM ? 1 : -1;
+    //     return (listGiliran.size() + giliran + increment) % listGiliran.size();
+    // }
+
     private int getNextIndex() {
-        var increment = arah == Arah.SEARAH_JARUM_JAM ? 1 : -1;
+        int increment;
+        if (arah != Arah.SEARAH_JARUM_JAM ){
+            increment = -1;
+        }
+        else{
+            increment = 1;
+        }
         return (listGiliran.size() + giliran + increment) % listGiliran.size();
     }
 
