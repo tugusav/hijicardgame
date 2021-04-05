@@ -115,8 +115,8 @@ public class testAgung {
     
                     else if (command.toLowerCase().equals("hiji") && (isStartGame)){
                         //declare hiji
-                        System.out.println("fungsinya belom ada hehehe");
-
+                        Declare declare = new Declare(curPlayer);
+                        declare.threading();
                     }
 
                     else if (command.toLowerCase().equals("players") && (isStartGame)){
