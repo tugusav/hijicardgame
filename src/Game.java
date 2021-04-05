@@ -50,6 +50,7 @@ public class Game {
             }
             else if (commando.equals("START"))
             {   
+                deck.shuffleCard();
                 // Memasukkan jumlah pemain
                 System.out.println("Masukkan jumlah pemain :");
                 int numPlayers = input.nextInt();
@@ -114,21 +115,22 @@ public class Game {
                                 System.out.println("Kartu berhasil di discard!");
                             }
                             System.out.println("Apakah kamu ingin mengeluarkan kartu lagi? (y/n): ");
+                            input.nextLine();
                             option = input.nextLine(); // y/n
                             }while(!option.equals("n"));
-                        }
+                        
                     case 3:
                         Card drawedCard;
                         drawedCard = game.generateRandomCard();
                         curPlayer.getPlayerCards().addCard(drawedCard);
                     case 4:
-                        Game.declareHiji();
+                        // Game.declareHiji();
                     case 5:
-                        Game.getPlayers();
+                        // Game.getPlayers();
                     case 6:
-                        Game.curPlayer;
+                        // Game.curPlayer;
                     case 7:
-                        Game.help();
+                        // Game.help();
                     case 8:
                         break;
 
@@ -137,6 +139,7 @@ public class Game {
             }
             System.out.println("Terimakasih sudah bermain HIJI bersama OOPah Koriya!");
             break;
+        }
         }
 
 
@@ -193,34 +196,36 @@ public class Game {
                 return false;
             }
         } else if (currentCard instanceof Angka){
-            return playedCard.getColor().equals(currentCard.getColor()) || playedCard.get
+            return playedCard.getColor().equals(currentCard.getColor()) || playedCard instanceof Special;
+        } else if (currentCard instanceof Action){
+            return playedCard.getColor().equals(currentCard.getColor());
         }
-        if (playedCard instanceof Angka){
-            if (currentCard instanceof Angka){
-                Angka c = (Angka) currentCard;
-                Angka p = (Angka) playedCard;
-                return (c.getColor().equals(p.getColor())) || (c.getNumber() == p.getNumber());
-            } else {
-                return playedCard.getColor().equals(currentCard.getColor());
-            }
-        } else if (playedCard instanceof Action){
-            if(currentCard instanceof Action){
-                Action c = (Action) currentCard;
-                Action p = (Action) playedCard;
-                return (c.getAction().equals(p.getAction())) || (c.getColor().equals(p.getColor()));
-            } else {
-                return false;
-            }
-        } else if (playedCard instanceof Special){
-            // if (currentCard instanceof Special){
-            //     Special c = (Special) currentCard;
-            //     Special p = (Special) playedCard;
-            //     return c.getSpecial().equals(p.getSpecial());
-            // } else {
-            //     return false;
-            // }
-            return true;
-        } else{
+        // if (playedCard instanceof Angka){
+        //     if (currentCard instanceof Angka){
+        //         Angka c = (Angka) currentCard;
+        //         Angka p = (Angka) playedCard;
+        //         return (c.getColor().equals(p.getColor())) || (c.getNumber() == p.getNumber());
+        //     } else {
+        //         return playedCard.getColor().equals(currentCard.getColor());
+        //     }
+        // } else if (playedCard instanceof Action){
+        //     if(currentCard instanceof Action){
+        //         Action c = (Action) currentCard;
+        //         Action p = (Action) playedCard;
+        //         return (c.getAction().equals(p.getAction())) || (c.getColor().equals(p.getColor()));
+        //     } else {
+        //         return false;
+        //     }
+        // } else if (playedCard instanceof Special){
+        //     // if (currentCard instanceof Special){
+        //     //     Special c = (Special) currentCard;
+        //     //     Special p = (Special) playedCard;
+        //     //     return c.getSpecial().equals(p.getSpecial());
+        //     // } else {
+        //     //     return false;
+        //     // }
+        //     return true;
+         else{
             return false;
         }
     }
@@ -279,7 +284,7 @@ public class Game {
                 }
                 // ArrayListGenerics<Card> cardsToDiscard = new ArrayListGenerics<>();
                 Card discardedCard = currentPlayer.getPlayerCards().getCard(pilihan-1);
-                if(!isCardValidNonMultipleDiscard(currentCard, discardedCard)){
+                if(!isCardValidNonMultipleDiscard(currentCard, discardedCard, currentColor)){
                     System.out.println("Kartu yang kamu pilih tidak valid!");
                 } else {
                     numDiscarded += 1;
@@ -320,6 +325,9 @@ public class Game {
                 System.out.println("Apakah kamu ingin mengeluarkan kartu lagi? (y/n): ");
                 sc.nextLine();
                 option = sc.nextLine(); // y/n
+                if(option.equals("n")){
+                    isMultipleDiscard = false;
+                }
             }
             applyPower(numDiscarded, currentCard, currentPlayer, giliran, currentColor, sc);
         }
