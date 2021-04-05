@@ -118,6 +118,12 @@ public class testAgung {
                         //declare hiji
                         Declare declare = new Declare(curPlayer);
                         declare.threading();
+                        System.out.println("giliran kamu diakhiri !");
+                        curPlayer.setIsNotPlaying();
+                        curPlayer = listPemain.next();
+                        curPlayer.setIsPlaying();
+                        System.out.println("Sekarang yang main adalah " + curPlayer.getNamePlayer());
+                        command = input.next();
                     }
 
                     else if (command.toLowerCase().equals("players") && (isStartGame)){
@@ -160,6 +166,7 @@ public class testAgung {
 
                 }
                 System.out.println("kamu yakin keluar permainan ?");
+                command = input.next();
                 
             }
         }
