@@ -187,7 +187,6 @@ public class Game {
     }
 
     public boolean isCardValidNonMultipleDiscard(Card currentCard, Card playedCard, Color currentColor){
-        
         Color cardColor = new Color(currentCard.getColor());
         if (currentCard instanceof Special){
             if(cardColor == currentColor){
@@ -196,36 +195,16 @@ public class Game {
                 return false;
             }
         } else if (currentCard instanceof Angka){
-            return playedCard.getColor().equals(currentCard.getColor()) || playedCard instanceof Special;
+            if(playedCard instanceof Angka){
+                Angka p = (Angka) playedCard;
+                Angka c = (Angka) currentCard;
+                return  p.getNumber() == c.getNumber() || p.getColor().equals(c.getColor());
+            }else {
+                return playedCard.getColor().equals(currentCard.getColor()) || playedCard instanceof Special;
+            }   
         } else if (currentCard instanceof Action){
-            return playedCard.getColor().equals(currentCard.getColor());
-        }
-        // if (playedCard instanceof Angka){
-        //     if (currentCard instanceof Angka){
-        //         Angka c = (Angka) currentCard;
-        //         Angka p = (Angka) playedCard;
-        //         return (c.getColor().equals(p.getColor())) || (c.getNumber() == p.getNumber());
-        //     } else {
-        //         return playedCard.getColor().equals(currentCard.getColor());
-        //     }
-        // } else if (playedCard instanceof Action){
-        //     if(currentCard instanceof Action){
-        //         Action c = (Action) currentCard;
-        //         Action p = (Action) playedCard;
-        //         return (c.getAction().equals(p.getAction())) || (c.getColor().equals(p.getColor()));
-        //     } else {
-        //         return false;
-        //     }
-        // } else if (playedCard instanceof Special){
-        //     // if (currentCard instanceof Special){
-        //     //     Special c = (Special) currentCard;
-        //     //     Special p = (Special) playedCard;
-        //     //     return c.getSpecial().equals(p.getSpecial());
-        //     // } else {
-        //     //     return false;
-        //     // }
-        //     return true;
-         else{
+            return playedCard.getColor().equals(currentCard.getColor()) || currentCard.getCardType().equals(playedCard.getCardType());
+        }else{
             return false;
         }
     }
