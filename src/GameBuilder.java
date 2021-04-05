@@ -24,6 +24,7 @@ public class GameBuilder {
             name = sc.next();
             Player player1 = new Player(name, playerCards);
             players.add(player1);
+            System.out.println("Player " + player1.getNamePlayer() + " berhasil ditambahkan!");
         }
         return players;
     } 

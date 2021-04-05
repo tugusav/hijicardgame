@@ -30,6 +30,10 @@ public class PlayerCards{
         this.numCards--;
         //ini bakal remove ato ngeluarin kartu yang akan digunakan di permainan HIJI
     }
+    public void discardByIndex(int i){
+        playerCards.remove(i);
+        this.numCards--;
+    }
 
     public void discardCard2(Card cardNdemolish){
         while(playerCards.contains(cardNdemolish)){
