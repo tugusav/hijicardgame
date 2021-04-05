@@ -50,19 +50,20 @@ public class GiliranPemain {
     }
 
     // private int getNextIndex() {
-    //     var increment = arah == Arah.SEARAH_JARUM_JAM ? 1 : -1;
-    //     return (listGiliran.size() + giliran + increment) % listGiliran.size();
+    //     var addition = arah == Arah.SEARAH_JARUM_JAM ? 1 : -1;
+    //     return (listGiliran.size() + giliran + addition) % listGiliran.size();
     // }
 
     private int getNextIndex() {
-        int increment;
+        int addition;
         if (arah != Arah.SEARAH_JARUM_JAM ){
-            increment = -1;
+            addition = -1;
         }
         else{
-            increment = 1;
+            addition = 1;
         }
-        return (listGiliran.size() + giliran + increment) % listGiliran.size();
+        int getidx = (listGiliran.size() + giliran + addition) % listGiliran.size();
+        return getidx;
     }
 
 
