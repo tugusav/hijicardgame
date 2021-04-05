@@ -1,4 +1,4 @@
-package Hiji;
+// package Hiji;
 
 
 import java.util.Scanner;
