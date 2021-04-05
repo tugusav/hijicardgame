@@ -19,7 +19,7 @@ public class test2{
         List<Card> playerCard = deck.assignCardsToPlayer();
         PlayerCards test = new PlayerCards(playerCard);
         test.showListCards();
-        players = GameBuilder.generatePlayers(3, deck);
+        players = GameBuilder.generatePlayers(3, deck, input);
         System.out.println(players.size());
         // for(int i=0; i< players.size(); i++){
         //     System.out.println(players.get(i).getNamePlayer());
