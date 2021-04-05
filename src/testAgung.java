@@ -83,7 +83,6 @@ public class testAgung {
                 System.out.println("The first card is :" + curCard.getType());
                 currentColor = new Color(curCard.getColor());
                 isStartGame = true;
-
                 System.out.println("Masukkan perintah menu yang ingin kamu lakukan!");
                 command = input.next();
                 
@@ -122,7 +121,7 @@ public class testAgung {
 
                     else if (command.toLowerCase().equals("players") && (isStartGame)){
                         for(int i = 0; i < players.size(); i++){
-                            System.out.println("Pemain " + i+1 + ": " + players.get(i).getNamePlayer());
+                            System.out.printf("Pemain %d : %s", i+1, players.get(i).getNamePlayer());
                             System.out.println("Jumlah Kartu: " + players.get(i).getTotalPlayerCards());
                             if(players.get(i).isPlaying()){
                                 System.out.println("Sedang giliran");
@@ -136,8 +135,20 @@ public class testAgung {
                     }
                     
                     else if (command.toLowerCase().equals("turn") && (isStartGame)){
-                        System.out.println("Pemain yang sedang bermain adalah: "+ " " + curPlayer.getNamePlayer());
-                        System.out.println("Pemain yang akan bermain selanjutnya: "+ " " + listPemain.next().getNamePlayer());
+                        for(int i = 0; i < players.size(); i++){
+                            if (players.get(i).isPlaying()) {
+                                System.out.println("Player dalam giliran: " + players.get(i).getNamePlayer());
+                                if (listPemain.getArah() == Arah.SEARAH_JARUM_JAM) {
+                                    System.out.println("Player selanjutnya: " + players.get((i+1) % players.size()).getNamePlayer());
+                                } else {
+                                    System.out.println("Player selanjutnya: " + players.get((i-1 + players.size()) % players.size()).getNamePlayer());
+                                }
+                            } else {
+                
+                            }
+                        }
+                        // System.out.println("Pemain yang sedang bermain adalah: "+ " " + curPlayer.getNamePlayer());
+                        // System.out.println("Pemain yang akan bermain selanjutnya: "+ " " + listPemain.next().getNamePlayer());
                         
                         //command = input.next();
                     }
