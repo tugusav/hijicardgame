@@ -86,11 +86,12 @@ public class testAgung {
                 System.out.println("Masukkan perintah menu yang ingin kamu lakukan!");
                 command = input.next();
                 
-                while (!command.toLowerCase().equals("end game")){
+                
+                while (!command.toLowerCase().equals("end")){
 
                     if (command.toLowerCase().equals("cards") && (isStartGame)){
                         curPlayer.getPlayerCards().showListCards();
-                        //command = input.next();
+                        command = input.next();
                     }
                     
                     else if (command.toLowerCase().equals("discard") && (isStartGame)){
@@ -110,7 +111,7 @@ public class testAgung {
                         System.out.println("Sekarang yang main adalah " + curPlayer.getNamePlayer());
 
 
-                        //command = input.next();
+                        command = input.next();
                     }
     
                     else if (command.toLowerCase().equals("hiji") && (isStartGame)){
@@ -121,7 +122,7 @@ public class testAgung {
 
                     else if (command.toLowerCase().equals("players") && (isStartGame)){
                         for(int i = 0; i < players.size(); i++){
-                            System.out.printf("Pemain %d : %s", i+1, players.get(i).getNamePlayer());
+                            System.out.printf("Pemain %d : %s", i+1, players.get(i).getNamePlayer()); System.out.println(" ");
                             System.out.println("Jumlah Kartu: " + players.get(i).getTotalPlayerCards());
                             if(players.get(i).isPlaying()){
                                 System.out.println("Sedang giliran");
@@ -131,7 +132,7 @@ public class testAgung {
                                 System.out.println(" ");
                             }
                         }
-                        //command = input.next();
+                        command = input.next();
                     }
                     
                     else if (command.toLowerCase().equals("turn") && (isStartGame)){
@@ -147,27 +148,20 @@ public class testAgung {
                 
                             }
                         }
-                        // System.out.println("Pemain yang sedang bermain adalah: "+ " " + curPlayer.getNamePlayer());
-                        // System.out.println("Pemain yang akan bermain selanjutnya: "+ " " + listPemain.next().getNamePlayer());
                         
-                        //command = input.next();
+                        command = input.next();
                     }
 
                     else if (command.toLowerCase().equals("help")){
                         Game.help();
-                        //command = input.next();
+                        command = input.next();
                     }
-                    command = input.next();
-
-                    
+                    //command = input.next();
 
                 }
-                System.out.println("kamu keluar permainan");
+                System.out.println("kamu yakin keluar permainan ?");
                 
             }
-        
-    
-        
         }
         System.out.println("Terimakasih sudah bermain HIJI bersama OOPah Koriya!");
         
