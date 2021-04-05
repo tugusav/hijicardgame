@@ -1,60 +1,24 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 
 public class testdeclareHIJI {
-    static void threadMessage(String message){
-        String threadName = Thread.currentThread().getName();
-        System.out.format("%s: %s%n", threadName,message);
-    }
-
-    private static class DeclaringHIJI implements Runnable{
-        public void run(){
-            // ArrayListGenerics<Player> players = new ArrayListGenerics<>(); // list of players
-            // Player curPlayer;
-            // Game game = new Game()
-            Scanner input = new Scanner(System.in);
-            String hiji = input.nextLine(); 
-            if (!Thread.interrupted()) {
-                if (hiji.equals("HIJI")) {
-                    threadMessage("anjayyy gakena jebakan batman");
-                } else {
-                    threadMessage("mampus ambil 2 kartu hahahah"); 
-                }
-                
-            } else {
-                threadMessage("MAMPUS ANJGG GAJADI MENANG LO");
-            }
-            input.close();
-
-            // try{
-            //     Thread.sleep(3000);
-            // } catch (InterruptedException e){
-            //     threadMessage("Lupa ngomong HIJI gwe!");
-            // }
-
-        }
-
-    }
-    public static void main(String[] args) throws InterruptedException{
-        long wait = 3000;
-        // threadMessage("Start to Declaring HIJI!");
-        long start = System.currentTimeMillis();
-        Thread t = new Thread(new DeclaringHIJI());
-        t.start();
-
-        // Scanner input = new Scanner(System.in);
-        // String command = input.nextLine();
-        // if (command.equals("discard")) {
-        //     threadMessage("Wait for player to Declare HIJI!");
-        while (t.isAlive()){
-            // threadMessage("still wait player to Declare HIJI!");
-            t.join(3000);
-            if(((System.currentTimeMillis() - start) > wait) && t.isAlive()){
-                threadMessage("Udah lebih dari 3 detik cuk!");
-                threadMessage("MaMPUS AMBIl 2 KARtu HAHAhaha");
-                t.interrupt();
-                t.join();
-            //draw card for penalty karena tidak declare HIJI
-            }  
-        }
+    public static void main(String[] args) throws InterruptedException {
+        Scanner input = new Scanner(System.in);
+        CardDeck deck = new CardDeck();
+        List<Player> players = new ArrayList<>(); // list of players
+        Arah arah = Arah.SEARAH_JARUM_JAM;
+        GiliranPemain listPemain = new GiliranPemain(players, arah);
+        int numPlayers = input.nextInt();
+        players = GameBuilder.generatePlayers(numPlayers, deck, input);
+        listPemain.setListGiliran(players);
+        Random randomizer = new Random();
+        int indexGiliran = randomizer.nextInt(((numPlayers - 1)) + 1);
+        listPemain.setGiliran(indexGiliran);
+        Player curPlayer;
+        curPlayer = listPemain.getGiliranPlayer();
+        Declare declare = new Declare(curPlayer);
+        declare.threading();
     }
 }
