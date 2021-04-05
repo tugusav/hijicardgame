@@ -188,7 +188,9 @@ public class Game {
 
     public boolean isCardValidNonMultipleDiscard(Card currentCard, Card playedCard, Color currentColor){
         Color cardColor = new Color(currentCard.getColor());
-        if (currentCard instanceof Special){
+        if (playedCard instanceof Special){
+            return true;
+        }else if (currentCard instanceof Special){
             if(cardColor == currentColor){
                 return true;
             } else {
