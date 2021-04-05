@@ -37,6 +37,9 @@ public class GiliranPemain {
     }
         
     }
+    public Arah getArah() {
+        return this.arah;
+    }
     
     public Player next() {
         giliran = getNextIndex();
