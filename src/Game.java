@@ -13,18 +13,6 @@ public class Game {
      
      }
 
-    public void showCommmands(){
-        System.out.println("Masukkan angka menu yang ingin kamu lakukan!");
-        System.out.println("1. List Cards");
-        System.out.println("2. Discard");
-        System.out.println("3. Draw");
-        System.out.println("4. Declare HIJI");
-        System.out.println("5. List Players");
-        System.out.println("6. View Player in Turn");
-        System.out.println("7. Help");
-        System.out.println("8. EXIT");
-    }
-
     public void showCommmands2(){
         System.out.println("Masukkan angka menu yang ingin kamu lakukan!");
         System.out.println("0. Help (start)");
@@ -85,7 +73,7 @@ public class Game {
     }
 
     public boolean isCardValidNonMultipleDiscard(Card currentCard, Card playedCard, Color currentColor){
-        Color cardColor = new Color(currentCard.getColor());
+        //Color cardColor = new Color(currentCard.getColor());
         if (playedCard instanceof Special){
             return true;
         }else if (currentCard instanceof Special){
@@ -143,56 +131,6 @@ public class Game {
             return false;
         }
     }
-
-    public void applyPower(int numCardsDiscarded, Card powerCard, Player currentPlayer, GiliranPemain giliran, Color currentColor, Scanner sc){
-        String[] warna = {"RED", "GREEN", "BLUE", "YELLOW"};
-        if (powerCard.getCardType().equals("DRAW 2")){
-            currentPlayer = giliran.next();
-            for(int i = 0; i < numCardsDiscarded; i++){
-                drawTwo(currentPlayer);
-            }
-        } else if(powerCard.getCardType().equals("SKIP")){
-            for(int i = 0; i < numCardsDiscarded; i++){
-                currentPlayer = giliran.skip();
-            }    
-        } else if (powerCard.getCardType().equals("REVERSE")){
-            for(int i = 0; i < numCardsDiscarded; i++){
-                giliran.reverseArah();
-            }   
-            currentPlayer = giliran.next();
-        } else if (powerCard.getCardType().equals("WILDCOLOR")){
-            System.out.println("Choose color: ");
-            for(int i=0; i < warna.length; i++){
-                System.out.println((i+1) + ". " + warna[i]);
-            }
-            int pilihan = sc.nextInt();
-            while(pilihan < 0 || pilihan > warna.length){
-                System.out.println("Warna tidak valid, silakan masukkan warna lagi!: ");
-                pilihan = sc.nextInt();
-            }
-            currentColor = new Color(warna[pilihan-1]);
-            currentPlayer = giliran.next();
-        } else if (powerCard.getCardType().equals("DRAW 4")){
-            System.out.println("Choose color: ");
-            for(int i=0; i < warna.length; i++){
-                System.out.println((i+1) + ". " + warna[i]);
-            }
-            int pilihan = sc.nextInt();
-            while(pilihan < 0 || pilihan > warna.length){
-                System.out.println("Warna tidak valid, silakan masukkan warna lagi!: ");
-                pilihan = sc.nextInt();
-            }
-            currentColor = new Color(warna[pilihan-1]);
-            currentPlayer = giliran.next();
-            for(int i = 0; i < numCardsDiscarded; i++){
-                drawFour(currentPlayer);
-            }
-        } else {
-            
-        }
-    }
-
-
 
     public void drawCards(int numberOfCards, Player player){
         for(int i=0; i < numberOfCards; i++){
@@ -282,19 +220,6 @@ public class Game {
         }
     }
 
-    public void showListPlayer(int banyakPlayer, Player player){
-        for(int i = 0; i < banyakPlayer; i++){
-            System.out.printf("Pemain %d", i, ": %s", player.getNamePlayer());
-            System.out.printf("Jumlah Kartu: %d", player.getPlayerCards());
-            //Gw bingung anuin giliran pemainnya :( duh maap gais gw lagi bego banget :(
-        }
-
-    }
-
-    public void start(){
-        
-    }
-    
     public static void help(){
         System.out.println("\nGimana sih cara main HIJI\n" +
                 "1. HIJI dimainkan oleh 2-6 pemain.\n" +
@@ -345,7 +270,7 @@ public class Game {
             } else if (opsi == 0) {
                 option = false;
             } else {
-                System.out.println("Teu bener sia teh!\n");
+                System.out.println("Masukkan kamu salah! masukkan angka 0-6!\n");
             }
 
         }
