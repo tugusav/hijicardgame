@@ -21,6 +21,25 @@ public class Game {
     public Game(){
 
     }
+    public static void clearScreen() {  
+
+        System.out.print("\033[H\033[2J");  
+     
+        System.out.flush();  
+     
+     }
+
+    public void showCommmands(){
+        System.out.println("Masukkan angka menu yang ingin kamu lakukan!");
+        System.out.println("1. List Cards");
+        System.out.println("2. Discard");
+        System.out.println("3. Draw");
+        System.out.println("4. Declare HIJI");
+        System.out.println("5. List Players");
+        System.out.println("6. View Player in Turn");
+        System.out.println("7. Help");
+        System.out.println("8. EXIT");
+    }
 
     public static void main(String[] args) throws Exception {
         Scanner input = new Scanner(System.in);
@@ -191,7 +210,7 @@ public class Game {
         if (playedCard instanceof Special){
             return true;
         }else if (currentCard instanceof Special){
-            if(cardColor == currentColor){
+            if(currentColor.getColor().equals(playedCard.getColor())){
                 return true;
             } else {
                 return false;
@@ -205,7 +224,12 @@ public class Game {
                 return playedCard.getColor().equals(currentCard.getColor()) || playedCard instanceof Special;
             }   
         } else if (currentCard instanceof Action){
-            return playedCard.getColor().equals(currentCard.getColor()) || currentCard.getCardType().equals(playedCard.getCardType());
+            if(playedCard instanceof Action){
+                Action c = (Action) currentCard;
+                Action p = (Action) playedCard;
+                return playedCard.getColor().equals(currentCard.getColor()) || c.getAction().equals(p.getAction()); 
+            } 
+            return playedCard.getColor().equals(currentCard.getColor());
         }else{
             return false;
         }
@@ -230,17 +254,25 @@ public class Game {
         } else if (powerCard.getCardType().equals("WILDCOLOR")){
             System.out.println("Choose color: ");
             for(int i=0; i < warna.length; i++){
-                System.out.println((i+1) + warna[i]);
+                System.out.println((i+1) + ". " + warna[i]);
             }
             int pilihan = sc.nextInt();
+            while(pilihan < 0 || pilihan > warna.length){
+                System.out.println("Warna tidak valid, silakan masukkan warna lagi!: ");
+                pilihan = sc.nextInt();
+            }
             currentColor = new Color(warna[pilihan-1]);
             currentPlayer = giliran.next();
         } else if (powerCard.getCardType().equals("DRAW 4")){
             System.out.println("Choose color: ");
             for(int i=0; i < warna.length; i++){
-                System.out.println((i+1) + warna[i]);
+                System.out.println((i+1) + ". " + warna[i]);
             }
             int pilihan = sc.nextInt();
+            while(pilihan < 0 || pilihan > warna.length){
+                System.out.println("Warna tidak valid, silakan masukkan warna lagi!: ");
+                pilihan = sc.nextInt();
+            }
             currentColor = new Color(warna[pilihan-1]);
             currentPlayer = giliran.next();
             for(int i = 0; i < numCardsDiscarded; i++){
