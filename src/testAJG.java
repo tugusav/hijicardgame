@@ -216,13 +216,13 @@ public class testAJG {
                             // command = input.next();
                             
                         } else {
-                            // power:
+                            power:
                             while (timeForPower) {
                                 // System.out.println("Masuk ke bagian sini");
                                 Game.clearScreen();
                                 String[] warna = {"RED", "GREEN", "BLUE", "YELLOW"};
                                 curPlayer.setIsNotPlaying();
-                                System.out.println(curCard.getCardType());
+                                //System.out.println(curCard.getCardType());
                                 if (curCard instanceof Action) {
                                     Action c = (Action) curCard;
                                     if (c.getAction().equals("DRAW 2")) {
@@ -262,7 +262,6 @@ public class testAJG {
                                                         System.out.println("ini declareHiji3");
                                                         Declare declareHiji = new Declare(curPlayer);
                                                         declareHiji.threading();
-                                                        declareHiji.threading();
                                                         curPlayer.setIsNotPlaying();
                                                         curPlayer = listPemain.next();
                                                         // break declareHiji3;
@@ -278,12 +277,6 @@ public class testAJG {
                                                 input.nextLine();
                                                 option = input.next(); // y/n
                                                 if (secondaryDiscarded == 0) {
-                                                    //belum ambil kartu
-//                                                            for (int i = 0; i < numDiscarded; i++) {
-//                                                                game.drawTwo(curPlayer);
-//                                                            }
-//                                                            isDrawTwo = false;
-//                                                            isDrawTwo = false;
                                                     isMultipleDrawDiscard = false;
                                                     gakJadi = true;
                                                     loop3 = false;
@@ -292,11 +285,6 @@ public class testAJG {
                                                         isMultipleDrawDiscard = true;
                                                     } else {
                                                         timeForPower = true;
-//                                                                for (int i = 0; i < numDiscarded; i++) {
-//                                                                    game.drawTwo(curPlayer);
-//                                                                };
-////                                                                curPlayer = listPemain.next();
-//                                                                isDrawTwo = false;
                                                         loop3 = false;
                                                     }
                                                 }
@@ -342,7 +330,6 @@ public class testAJG {
                                                 option = input.nextLine(); // y/n
                                                 if (option.equals("n")) {
                                                     isMultipleDrawDiscard = false;
-//                                                            isDrawTwo = false;
                                                     timeForPower = true;
                                                     loop4 = false;
                                                 } else {
@@ -399,8 +386,9 @@ public class testAJG {
                                     }
                                 } else {
                                     curPlayer = listPemain.next();
+                                    currentColor = new Color(curCard.getColor());
                                 }
-                                // break;
+                                break power; //ini break unutk keluar dari discard function
 
                             }
 
