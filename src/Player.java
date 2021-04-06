@@ -24,7 +24,6 @@ public class Player {
        
     public int getTotalPlayerCards(){
         return this.playerCards.getNumCards();
-        //gatau ini wkwkw bener ga ye
     }
     public boolean isPlaying(){
         return isPlaying;

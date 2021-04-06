@@ -5,6 +5,6 @@ public class InvalidSpecialException extends InvalidCardException{
         this.special = special;
     }
     public String getErrorMessage(){
-        return "Action  " + special + " tidak valid!!!";
+        return "Special  " + special + " tidak valid!!!";
     }
 }

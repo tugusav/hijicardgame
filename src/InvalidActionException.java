@@ -1,5 +1,4 @@
 public class InvalidActionException extends InvalidCardException{
-
     String action;
     public InvalidActionException(Color color,String action){
         super(color);

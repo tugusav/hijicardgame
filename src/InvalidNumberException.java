@@ -1,4 +1,3 @@
-//package Hiji;
 
 public class InvalidNumberException extends InvalidCardException{
     //Digunakan di class Angka, semisal buat kartu angka di luar range akan muncul pesan error

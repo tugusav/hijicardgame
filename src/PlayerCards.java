@@ -9,6 +9,11 @@ public class PlayerCards{
         this.playerCards = playerCards;
         this.numCards = playerCards.size();
     }
+
+    public void setPlayerCards(List<Card> playercard){
+        this.playerCards = playercard;
+    }
+
     public int getNumCards(){
         return this.numCards;
     }
@@ -23,7 +28,6 @@ public class PlayerCards{
     public void addCard(Card drawedCard){
         playerCards.add(drawedCard);
         this.numCards++;
-        //Ini bakal add one element di akhir list gitu, reference dari geeks for geeks
     }
 
     public void discardCard(Card currentCard) {
@@ -41,15 +45,7 @@ public class PlayerCards{
             playerCards.remove(cardNdemolish);
             this.numCards--;
         }
-        //Kepikirannya jadi pake while dia buat ngecek gitu kalo ada kartu yang tipenya sama atau ngga, kalau ada dia return true
-        //, terus lanjut ngeremove object card nya
     }
-
-    public void printNumCards(Player player){
-        System.out.format("Jumlah kartu %s\n adalah %d\n", player.getNamePlayer() , this.getNumCards());
-        //Ini bakal ngeluarin output berupa jumlah kartu yang dipegan oleh seorang
-    }
- 
     
     public void showListCards(){
         for(int i = 0; i < playerCards.size(); i++){

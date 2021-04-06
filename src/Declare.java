@@ -1,6 +1,3 @@
-// package Hiji;
-
-
 import java.util.Scanner;
 
 public class Declare {

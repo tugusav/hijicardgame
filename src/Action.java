@@ -19,26 +19,6 @@ public class Action extends Card {
         }
     }
 
-    /* masih blm ngerti jadi di-comment dulu
-    public void skip() {
-        next();
-        next();
-    }
-    
-    
-    public void reverse() {
-        reverseArah();
-        next();
-    }
-
-    public void draw2() {
-        next();
-        for (int i = 0; i < 2; i++) {
-            //player add 2 from deck
-        }
-    }
-    */
-
     public String getAction() {
         return action;
     }
@@ -54,7 +34,6 @@ public class Action extends Card {
     }
     @Override
     public String getType() {
-        // TODO Auto-generated method stub
         return this.getAction() + " " + this.getColor();
     }
 }

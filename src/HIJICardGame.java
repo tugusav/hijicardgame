@@ -477,7 +477,7 @@ public class HIJICardGame {
                     }
 
                     else{
-                        System.out.println("Kamu salah memasukkan perintah cuk!!!");
+                        System.out.println("Kamu salah memasukkan perintah!");
                         System.out.println("Masukkan perintah menu yang ingin kamu lakukan! kalau lupa ketik (command)");
                         System.out.println(" ");
                         command = input.next();

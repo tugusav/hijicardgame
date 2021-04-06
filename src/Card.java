@@ -1,5 +1,3 @@
-//import java.util.Arrays;
-
 public abstract class Card {
     private final String color;
     private final String type;
@@ -17,9 +15,7 @@ public abstract class Card {
     public String getColor(){
         return color;
     }
-    // public String getType(){
-    //     return type;
-    // }
+
     public String getCardType(){
         return this.type;
     }

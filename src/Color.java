@@ -1,5 +1,3 @@
-//package Hiji;
-
 public class Color {
     //Dibuat untuk membuat color tiap kartu
     private String color = "NULL";
@@ -18,7 +16,9 @@ public class Color {
         this.color = color;
     }
 
-    public boolean getColorCard(){return trueColor;}
+    public boolean getColorCard(){
+        return trueColor;
+    }
 
     public String getColor() {
         return color;
