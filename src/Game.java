@@ -113,6 +113,36 @@ public class Game {
             return false;
         }
     }
+    
+    public boolean isDrawCardValidDiscard(Card currentCard, Card playedCard, Color currentColor){
+        Color cardColor = new Color(currentCard.getColor());
+        if (playedCard instanceof Special){
+            return true;
+        }else if (currentCard instanceof Special){
+            if(currentColor.getColor().equals(playedCard.getColor())){
+                return true;
+            } else {
+                return false;
+            }
+        } else if (currentCard instanceof Angka){
+            if(playedCard instanceof Angka){
+                Angka p = (Angka) playedCard;
+                Angka c = (Angka) currentCard;
+                return  p.getNumber() == c.getNumber() || p.getColor().equals(c.getColor());
+            }else {
+                return playedCard.getColor().equals(currentCard.getColor()) || playedCard instanceof Special;
+            }
+        } else if (currentCard instanceof Action){
+            if(playedCard instanceof Action){
+                Action c = (Action) currentCard;
+                Action p = (Action) playedCard;
+                return c.getAction().equals(p.getAction());
+            }
+            return playedCard.getCardType().equals(currentCard.getCardType());
+        }else{
+            return false;
+        }
+    }
 
     public void applyPower(int numCardsDiscarded, Card powerCard, Player currentPlayer, GiliranPemain giliran, Color currentColor, Scanner sc){
         String[] warna = {"RED", "GREEN", "BLUE", "YELLOW"};
