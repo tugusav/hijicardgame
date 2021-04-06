@@ -18,10 +18,7 @@ public class HIJICardGame {
         Card discardedCard;
         Color currentColor;
         boolean isStartGame = false;
-        System.out.println("-------WELCOME TO HIJI GAMES-------");
-        System.out.println("1. START");
-        System.out.println("2. HELP");
-        System.out.println("3. EXIT");
+        Game.showBanner();
 
         String command = input.next();
 

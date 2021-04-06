@@ -5,6 +5,18 @@ public class Game {
     public Game(){
 
     }
+    
+    public static void showBanner(){
+        System.out.println("[  ] ++++++++++++++++MAIN MENU++++++++++++++++ [  ]");
+        System.out.println(" ||                                             ||");
+        System.out.println(" ||                                             ||");
+        System.out.println(" ||                >> START                     ||");
+        System.out.println(" ||                >> HELP                      ||");
+        System.out.println(" ||                >> EXIT                      ||");
+        System.out.println(" ||                                             ||");
+        System.out.println(" ||                                             ||");
+        System.out.println("[  ] +++++++++++++ HIJI CARD GAME +++++++++++++[  ]");
+    }
     public static void clearScreen() {  
 
         System.out.print("\033[H\033[2J");  
@@ -229,7 +241,7 @@ public class Game {
                 "5. Apabila pemain tidak mengeluarkan kartu, pemain wajib mengambil satu kartu dari infinite deck\n" +
                 "6. Apabila kartu yang baru diambil tersebut bisa dikeluarkan, pemain boleh mengeluarkan kartu tersebut (tidak wajib).\n" +
                 "7. Beberapa jenis kartu memiliki power tertentu yang dapat memengaruhi jalannya permainan\n" +
-                "8. Apabila pemain memiliki sisa satu kartu, maka pemain harus melakukan “Declare HIJI” dalam waktu 3 detik. Apabila tidak, pemain wajib mengambil dua kartu dari deck.\n" +
+                "8. Apabila pemain memiliki sisa satu kartu, maka pemain harus melakukan 'Declare HIJI' dalam waktu 3 detik. Apabila tidak, pemain wajib mengambil dua kartu dari deck.\n" +
                 "9. Pemain dinyatakan menang apabila kartu yang dipegangnya sudah habis, dan permainan selesai.");
 
         System.out.println("\n\nJenis Kartu HIJI\n" +
