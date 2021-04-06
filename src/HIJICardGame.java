@@ -250,7 +250,7 @@ public class HIJICardGame {
                                                 System.out.println("Kartu sekarang: " + curCard.getType());
                                                 System.out.println("Kartu yang dipilih: " + discardedCard.getType());
 
-                                                if (!game.isCardValidNonMultipleDiscard(curCard, discardedCard, currentColor)) {
+                                                if (!game.isDrawCardValidDiscard(curCard, discardedCard, currentColor)) {
                                                     System.out.println("Kartu yang kamu pilih tidak valid!");
                                                 } else {
                                                     numDiscarded += 1;
@@ -303,7 +303,7 @@ public class HIJICardGame {
                                                 discardedCard = curPlayer.getPlayerCards().getCard(pilihan - 1);
                                                 System.out.println(discardedCard.getType());
                                                 System.out.println(curCard.getType());
-                                                if (!game.isCardValid(curCard, discardedCard, currentColor)) {
+                                                if (!game.isDrawCardValidDiscard(curCard, discardedCard, currentColor)) {
                                                     System.out.println("Kartu yang kamu pilih tidak valid!");
                                                 } else {
                                                     numDiscarded += 1;
