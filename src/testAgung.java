@@ -326,16 +326,23 @@ public class testAgung {
                         System.out.println("Masukkan perintah menu yang ingin kamu lakukan! kalau lupa ketik (command)");
                         command = input.next();
                     }
+                    
+                    else{
+                        System.out.println("Kamu salah memasukkan perintah cuk!!!");
+                        System.out.println("Masukkan perintah menu yang ingin kamu lakukan! kalau lupa ketik (command)");
+                        command = input.next();
+
+                    }
                     //command = input.next();
 
                 }
                 System.out.println("Yahh kamu sudah mekahiri permainan.");
-                
+                break;
             }
-            System.out.println("1. START");
-            System.out.println("2. HELP");
-            System.out.println("3. EXIT");
-            command = input.next();
+            // System.out.println("1. START");
+            // System.out.println("2. HELP");
+            // System.out.println("3. EXIT");
+            // command = input.next();
         }
         System.out.println("Terimakasih sudah bermain HIJI bersama OOPah Koriya!");
         
