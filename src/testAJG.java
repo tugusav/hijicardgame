@@ -107,6 +107,7 @@ public class testAJG {
                         boolean gakJadi = false;
                         System.out.println("Current Card: " + curCard.getType());
                         System.out.println("Current Color: " + currentColor.getColor());
+                        declareHiji1:
                         while (!isMultipleDiscard && loop) {
                             System.out.println("Masukkan kartu yang ingin kamu mainkan: ");
                             curPlayer.getPlayerCards().showListCards(); //ngeprint list kartu
@@ -126,6 +127,14 @@ public class testAJG {
                                 curCard = discardedCard; // ngeliat paling atas di discarded pile
                                 curPlayer.getPlayerCards().discardByIndex(pilihan - 1);
                                 System.out.println("Kartu berhasil di discard!");
+                                if(game.isLeft1Card(curPlayer)){
+                                    System.out.println("ini declareHiji1");
+                                    Declare declareHiji = new Declare(curPlayer);
+                                    declareHiji.threading();
+                                    curPlayer.setIsNotPlaying();
+                                    curPlayer = listPemain.next();
+                                    break declareHiji1;
+                                }
                                 currentColor = new Color(discardedCard.getColor());
                             }
                             System.out.println("Apakah kamu ingin mengeluarkan kartu lagi? (y/n): ");
@@ -145,6 +154,7 @@ public class testAJG {
                                 }
                             }
                         }
+                        declareHiji2:
                         while (isMultipleDiscard && loop2) {
                             // System.out.println("hayoloh masuk multiple");
                             System.out.println("Masukkan kartu yang ingin kamu mainkan: ");
@@ -166,6 +176,12 @@ public class testAJG {
                                 curPlayer.getPlayerCards().discardByIndex(pilihan - 1);
                                 System.out.println("Kartu berhasil di discard!");
                                 currentColor = new Color(discardedCard.getColor());
+                                if(game.isLeft1Card(curPlayer)){
+                                    System.out.println("ini declareHiji2");
+                                    Declare declareHiji = new Declare(curPlayer);
+                                    declareHiji.threading();
+                                    // break declareHiji2;
+                                }
                             }
                             System.out.println("Apakah kamu ingin mengeluarkan kartu lagi? (y/n): ");
                             input.nextLine();
@@ -183,40 +199,17 @@ public class testAJG {
                             Card drawedCard;
                             drawedCard = game.generateRandomCard(); // generate random card
                             curPlayer.getPlayerCards().addCard(drawedCard);
-                            if(drawedCard.getColor().equals(currentColor.getColor()) || drawedCard instanceof Special){
-                                // kartunya bisa dikeluarin
-                                System.out.println("Kartu hasil draw kamu bisa di-discard!");
-                                System.out.println("Apakah kamu mau mendiscard kartu " + drawedCard.getCardType() + " ? (y/n)");
-                                input.nextLine();
-                                option = input.nextLine();
-                                if(option.equals("n")){
-                                    System.out.println("Kartu kamu bertambah 1!");
-                                    System.out.println("Giliran kamu diakhiri !");
-                                    curPlayer.setIsNotPlaying();
-                                    curPlayer = listPemain.next();
-                                    curPlayer.setIsPlaying();
-                                    System.out.println("Sekarang yang main adalah " + curPlayer.getNamePlayer());
-                                    System.out.println("Masukkan command yang ingin kamu lakukan!");
-                                    command = input.nextLine();
-                                    break;
-                                } else {
-                                    timeForPower = true;
-                                    break;
-                                }
-                            } else {
-                                // kartunya gak bisa dikeluarin
-                                System.out.println("Kartu kamu bertambah 1!");
-                                System.out.println("Giliran kamu diakhiri !");
-                                curPlayer.setIsNotPlaying();
-                                curPlayer = listPemain.next();
-                                curPlayer.setIsPlaying();
-                                System.out.println("Sekarang yang main adalah " + curPlayer.getNamePlayer());
-                                System.out.println("Masukkan command yang ingin kamu lakukan!");
-                                command = input.nextLine();
-                                break;
-                            }
+                            System.out.println("Kartu kamu bertambah 1!");
+                            System.out.println("Giliran kamu diakhiri !");
+                            curPlayer.setIsNotPlaying();
+                            curPlayer = listPemain.next();
+                            curPlayer.setIsPlaying();
+                            System.out.println("Sekarang yang main adalah " + curPlayer.getNamePlayer());
+                            // System.out.println("Masukkan command yang ingin kamu lakukan!");
+                            // command = input.next();
                             
-                        }
+                        } else {
+                            // power:
                             while (timeForPower) {
                                 // System.out.println("Masuk ke bagian sini");
                                 game.clearScreen();
@@ -228,6 +221,7 @@ public class testAJG {
                                     if (c.getAction().equals("DRAW 2")) {
                                         isDrawTwo = true;
                                         curPlayer = listPemain.next();
+                                        declareHiji3:
                                         while(isDrawTwo) {
                                             int secondaryDiscarded = 0;
                                             boolean isMultipleDrawDiscard = false;
@@ -257,6 +251,15 @@ public class testAJG {
                                                     curPlayer.getPlayerCards().discardByIndex(pilihan - 1);
                                                     System.out.println("Kartu berhasil di discard!");
                                                     currentColor = new Color(discardedCard.getColor());
+                                                    if(game.isLeft1Card(curPlayer)){
+                                                        System.out.println("ini declareHiji3");
+                                                        Declare declareHiji = new Declare(curPlayer);
+                                                        declareHiji.threading();
+                                                        declareHiji.threading();
+                                                        curPlayer.setIsNotPlaying();
+                                                        curPlayer = listPemain.next();
+                                                        // break declareHiji3;
+                                                    }
                                                 }
                                                 System.out.println("Apakah kamu ingin mengeluarkan kartu lagi? (y/n): ");
                                                 input.nextLine();
@@ -285,6 +288,7 @@ public class testAJG {
                                                     }
                                                 }
                                             }
+                                            declareHiji4:
                                             while (isMultipleDrawDiscard && loop4) {
                                                 // System.out.println("hayoloh masuk multiple");
                                                 System.out.println("Masukkan kartu yang ingin kamu mainkan: ");
@@ -307,6 +311,12 @@ public class testAJG {
                                                     curPlayer.getPlayerCards().discardByIndex(pilihan - 1);
                                                     System.out.println("Kartu berhasil di discard!");
                                                     currentColor = new Color(discardedCard.getColor());
+                                                    if(game.isLeft1Card(curPlayer)){
+                                                        System.out.println("ini declareHiji4");
+                                                        Declare declareHiji = new Declare(curPlayer);
+                                                        declareHiji.threading();
+                                                        // break declareHiji4;
+                                                    }
                                                 }
                                                 System.out.println("Apakah kamu ingin mengeluarkan kartu lagi? (y/n): ");
                                                 input.nextLine();
@@ -371,18 +381,19 @@ public class testAJG {
                                 } else {
                                     curPlayer = listPemain.next();
                                 }
-                                break;
+                                // break;
 
                             }
 
-                        
+                        }
                         // saatnya ganti pemain
+                        
                         curPlayer.setIsPlaying();
                         System.out.println("Sekarang giliran " + curPlayer.getNamePlayer());
-                        System.out.println("Masukkan command yang ingin kamu lakukan!");
-                        game.showCommmands();
-                        command = input.nextLine();
-                        break;
+                        System.out.println("Masukkan perintah menu yang ingin kamu lakukan! kalau lupa ketik (command)");
+                        System.out.println(" ");
+                        command = input.next();
+                        // break;
                 }
     
                     else if (command.toLowerCase().equals("draw") && (isStartGame)){
