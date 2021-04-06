@@ -69,25 +69,19 @@ public class Hiji {
                 System.out.println("The first card is: " + curCard.getType() + "!");
                 currentColor = new Color(curCard.getColor());
 
-                System.out.println("Masukkan angka menu yang ingin kamu lakukan!");
-                System.out.println("1. List Cards");
-                System.out.println("2. Discard");
-                System.out.println("3. Draw");
-                System.out.println("4. Declare HIJI");
-                System.out.println("5. List Players");
-                System.out.println("6. View Player in Turn");
-                System.out.println("7. Help");
-                System.out.println("8. EXIT");
+                game.showCommmands();
 
                 int command = input.nextInt();
 
                 while(command != 8){
+                    game.clearScreen();
                     switch (command) {
                         case 1:
                         // list cards
                             System.out.println("Kartu yang " +curPlayer.getNamePlayer() + " miliki saat ini: ");
                             curPlayer.getPlayerCards().showListCards();
                             System.out.println("Masukkan command yang ingin kamu lakukan!");
+                            game.showCommmands();
                             command = input.nextInt();
                             break;
                         case 2:
@@ -140,7 +134,7 @@ public class Hiji {
                             }
                             loop2:
                             while(isMultipleDiscard){
-                                System.out.println("hayoloh masuk multiple");
+                                // System.out.println("hayoloh masuk multiple");
                                 System.out.println("Masukkan kartu yang ingin kamu mainkan: ");
                                 curPlayer.getPlayerCards().showListCards(); //ngeprint list kartu
                                 int pilihan = input.nextInt();
@@ -177,7 +171,7 @@ public class Hiji {
                                 drawedCard = game.generateRandomCard();
                                 curPlayer.getPlayerCards().addCard(drawedCard);
                                 System.out.println("Kartu kamu bertambah 1!");
-                                System.out.println("giliran kamu diakhiri !");
+                                System.out.println("Giliran kamu diakhiri !");
                                 curPlayer.setIsNotPlaying();
                                 curPlayer = listPemain.next();
                                 curPlayer.setIsPlaying();
@@ -187,7 +181,8 @@ public class Hiji {
                                 break;
                             } else {
                                 while(timeForPower){
-                                    System.out.println("Masuk ke bagian sini");
+                                    // System.out.println("Masuk ke bagian sini");
+                                    game.clearScreen();
                                     String[] warna = {"RED", "GREEN", "BLUE", "YELLOW"};
                                     curPlayer.setIsNotPlaying();
                                     System.out.println(curCard.getCardType());
@@ -217,14 +212,22 @@ public class Hiji {
                                                 System.out.println((i+1) + ". "+ warna[i]);
                                             }
                                             int pilihan = input.nextInt();
+                                            while(pilihan < 0 || pilihan > warna.length){
+                                                System.out.println("Warna tidak valid, silakan masukkan warna lagi!: ");
+                                                pilihan = input.nextInt();
+                                            }
                                             currentColor = new Color(warna[pilihan-1]);
                                             curPlayer = listPemain.next();
                                         } else if (c.getSpecial().equals("DRAW 4")){
                                             System.out.println("Choose color: ");
                                             for(int i=0; i < warna.length; i++){
-                                                System.out.println((i+1) + warna[i]);
+                                                System.out.println((i+1) + ". "+ warna[i]);
                                             }
                                             int pilihan = input.nextInt();
+                                            while(pilihan < 0 || pilihan > warna.length){
+                                                System.out.println("Warna tidak valid, silakan masukkan warna lagi!: ");
+                                                pilihan = input.nextInt();
+                                            }
                                             currentColor = new Color(warna[pilihan-1]);
                                             curPlayer = listPemain.next();
                                             for(int i = 0; i < numDiscarded; i++){
@@ -241,20 +244,24 @@ public class Hiji {
                             }
                             // saatnya ganti pemain
                             curPlayer.setIsPlaying();
-                            System.out.println(curPlayer.getNamePlayer());
+                            System.out.println("Sekarang giliran " + curPlayer.getNamePlayer());
                             System.out.println("Masukkan command yang ingin kamu lakukan!");
+                            game.showCommmands();
                             command = input.nextInt();
                             break;
                         case 3:
                             Card drawedCard;
                             drawedCard = game.generateRandomCard();
                             curPlayer.getPlayerCards().addCard(drawedCard);
-                            System.out.println("Kartu kamu bertambah 1!");
-                            System.out.println("giliran kamu diakhiri !");
+                            System.out.println("Karena gagal mengeluarkan kartu, Kartu kamu bertambah 1!");
+                            System.out.println("Sekarang, giliran kamu diakhiri!");
                             curPlayer.setIsNotPlaying();
                             curPlayer = listPemain.next();
                             curPlayer.setIsPlaying();
                             System.out.println("Sekarang yang main adalah " + curPlayer.getNamePlayer());
+                            System.out.println("Masukkan command yang ingin kamu lakukan!");
+                            game.showCommmands();
+                            command = input.nextInt();
                             break;
                         default:
                             break;
