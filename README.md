@@ -15,7 +15,7 @@ Kelas pada game ini mengimplementasi
 
 ### Membuat Aplikasi
 ```sh
-$ javac HIJICardGame.java
+$ javac *.java
 $ java HIJICardGame
 ```
 
