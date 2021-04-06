@@ -1,16 +1,12 @@
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
-import java.util.Stack;
 
 public class testAJG {  
     public static void main(String[] args) throws InterruptedException {
         Scanner input = new Scanner(System.in);
         CardDeck deck = new CardDeck();
-        boolean isHiji = false; //  menentukan game masih berjalan atau tidak
-        Stack<Card> discardPile = new Stack<>(); // untuk dapat melihat top of stack
         Card curCard; // kartu yang ada di discardPile paling atas
         List<Player> players = new ArrayList<>(); // list of players
         Player winner = null;
@@ -83,8 +79,7 @@ public class testAJG {
                 System.out.println("Masukkan perintah menu yang ingin kamu lakukan! kalau lupa ketik (command)");
                 System.out.println(" ");
                 command = input.next();
-                int howManyDraw2 = 0;
-
+                boolean haveWinner = false;
                 loop3:
                 while(isStartGame){
                     
@@ -135,6 +130,12 @@ public class testAJG {
                                     curPlayer = listPemain.next();
                                     break declareHiji1;
                                 }
+                                if(game.isLeft0Card(curPlayer)){
+                                    haveWinner = true;
+                                    isStartGame = false;
+                                    winner = curPlayer;
+                                    break loop3;
+                                }
                                 currentColor = new Color(discardedCard.getColor());
                             }
                             System.out.println("Apakah kamu ingin mengeluarkan kartu lagi? (y/n): ");
@@ -182,6 +183,12 @@ public class testAJG {
                                     declareHiji.threading();
                                     // break declareHiji2;
                                 }
+                                if(game.isLeft0Card(curPlayer)){
+                                    haveWinner = true;
+                                    isStartGame = false;
+                                    winner = curPlayer;
+                                    break loop3;
+                                }
                             }
                             System.out.println("Apakah kamu ingin mengeluarkan kartu lagi? (y/n): ");
                             input.nextLine();
@@ -212,7 +219,7 @@ public class testAJG {
                             // power:
                             while (timeForPower) {
                                 // System.out.println("Masuk ke bagian sini");
-                                game.clearScreen();
+                                Game.clearScreen();
                                 String[] warna = {"RED", "GREEN", "BLUE", "YELLOW"};
                                 curPlayer.setIsNotPlaying();
                                 System.out.println(curCard.getCardType());
@@ -227,7 +234,7 @@ public class testAJG {
                                             boolean isMultipleDrawDiscard = false;
                                             boolean loop3 = true;
                                             boolean loop4 = true;
-                                            Special s = (Special) curCard;
+                                            // Special s = (Special) curCard;
                                             System.out.println("Giliran selanjutnya!");
                                             System.out.println(curPlayer.getNamePlayer() + " Keluarkan draw 2 lain jika ingin selamat");
                                             while (!isMultipleDrawDiscard && loop3) {
@@ -259,6 +266,12 @@ public class testAJG {
                                                         curPlayer.setIsNotPlaying();
                                                         curPlayer = listPemain.next();
                                                         // break declareHiji3;
+                                                    }
+                                                    if(game.isLeft0Card(curPlayer)){
+                                                        haveWinner = true;
+                                                        isStartGame = false;
+                                                        winner = curPlayer;
+                                                        break loop3;
                                                     }
                                                 }
                                                 System.out.println("Apakah kamu ingin mengeluarkan kartu lagi? (y/n): ");
@@ -316,6 +329,12 @@ public class testAJG {
                                                         Declare declareHiji = new Declare(curPlayer);
                                                         declareHiji.threading();
                                                         // break declareHiji4;
+                                                    }
+                                                    if(game.isLeft0Card(curPlayer)){
+                                                        haveWinner = true;
+                                                        isStartGame = false;
+                                                        winner = curPlayer;
+                                                        break loop3;
                                                     }
                                                 }
                                                 System.out.println("Apakah kamu ingin mengeluarkan kartu lagi? (y/n): ");
@@ -426,34 +445,14 @@ public class testAJG {
                     }
 
                     else if (command.toLowerCase().equals("players") && (isStartGame)){
-                        for(int i = 0; i < players.size(); i++){
-                            System.out.printf("Pemain %d : %s", i+1, players.get(i).getNamePlayer()); System.out.println(" ");
-                            System.out.println("Jumlah Kartu: " + players.get(i).getTotalPlayerCards());
-                            if(players.get(i).isPlaying()){
-                                System.out.println("Sedang giliran");
-                                System.out.println(" ");
-                            } else {
-                                System.out.println("Tidak sedang giliran");
-                                System.out.println(" ");
-                            }
-                        }
+                        game.showPlayers(listPemain);
                         System.out.println("Masukkan perintah menu yang ingin kamu lakukan! kalau lupa ketik (command)");
                         System.out.println(" ");
                         command = input.next();
                     }
                     
                     else if (command.toLowerCase().equals("turn") && (isStartGame)){
-                        for(int i = 0; i < players.size(); i++){
-                            if (players.get(i).isPlaying()) {
-                                System.out.println("Player dalam giliran: " + players.get(i).getNamePlayer());
-                                if (listPemain.getArah() == Arah.SEARAH_JARUM_JAM) {
-                                    System.out.println("Player selanjutnya: " + players.get((i+1) % players.size()).getNamePlayer());
-                                } else {
-                                    System.out.println("Player selanjutnya: " + players.get((i-1 + players.size()) % players.size()).getNamePlayer());
-                                }
-                            } else {
-                            }
-                        }
+                        game.viewPlayerInTurn(listPemain, listPemain.getArah());
                         System.out.println("Masukkan perintah menu yang ingin kamu lakukan! kalau lupa ketik (command)");
                         System.out.println(" ");
                         command = input.next();
@@ -497,7 +496,13 @@ public class testAJG {
                         command = input.next();
                     }
                 }
-                System.out.println("Yahh kamu sudah mekahiri permainan.");
+                if (haveWinner) {
+                    System.out.println();
+                    System.out.println("Selamat " + winner.getNamePlayer() + " kamu telah memenangkan game HIJI ini!");
+                    System.out.println("--------------------------------------------------------------------------------");
+                    winner = null;
+                }
+                System.out.println("Permainan sudah berakhir!!");
                 System.out.println("1. START");
                 System.out.println("2. HELP");
                 System.out.println("3. EXIT");
@@ -514,7 +519,7 @@ public class testAJG {
             }
 
         }
-        System.out.println("Terimakasih sudah bermain HIJI bersama OOPah Koriya!");
+        System.out.println("Terimakasih sudah bermain HIJI bersama OOPpah Koriya!");
         
     }
     
