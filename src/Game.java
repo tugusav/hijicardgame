@@ -41,6 +41,20 @@ public class Game {
         System.out.println("8. EXIT");
     }
 
+    public void showCommmands2(){
+        System.out.println("Masukkan angka menu yang ingin kamu lakukan!");
+        System.out.println("0. Help (start)");
+        System.out.println("1. List Cards (cards)");
+        System.out.println("2. Discard (discard)");
+        System.out.println("3. Draw (draw)");
+        System.out.println("4. Declare HIJI (HIJI)");
+        System.out.println("5. List Players (players)");
+        System.out.println("6. View Player in Turn (turn)");
+        System.out.println("7. Help (help)");
+        System.out.println("8. End (end)");
+        System.out.println("8. EXIT (exit)");
+    }
+
     public static void main(String[] args) throws Exception {
         Scanner input = new Scanner(System.in);
         CardDeck deck = new CardDeck();

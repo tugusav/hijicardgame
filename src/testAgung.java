@@ -24,14 +24,8 @@ public class testAgung {
         boolean isStartGame = false;
         System.out.println("-------WELCOME TO HIJI GAMES-------");
         System.out.println("1. START");
-        System.out.println("2. Cards");
-        System.out.println("3. Discard");
-        System.out.println("4. Draw");
-        System.out.println("5. HIJI");
-        System.out.println("6. Players");
-        System.out.println("7. Turn");
-        System.out.println("8. Help");
-        System.out.println("9. EXIT");
+        System.out.println("2. HELP");
+        System.out.println("3. EXIT");
 
         String command = input.next();
 
@@ -83,7 +77,7 @@ public class testAgung {
                 System.out.println("The first card is :" + curCard.getType());
                 currentColor = new Color(curCard.getColor());
                 isStartGame = true;
-                System.out.println("Masukkan perintah menu yang ingin kamu lakukan!");
+                System.out.println("Masukkan perintah menu yang ingin kamu lakukan! kalau lupa ketik (command)");
                 command = input.next();
                 
                 
@@ -91,12 +85,175 @@ public class testAgung {
 
                     if (command.toLowerCase().equals("cards") && (isStartGame)){
                         curPlayer.getPlayerCards().showListCards();
+                        System.out.println("Masukkan perintah menu yang ingin kamu lakukan! kalau lupa ketik (command)");
                         command = input.next();
                     }
                     
                     else if (command.toLowerCase().equals("discard") && (isStartGame)){
-                        //game.discard(curCard, curPlayer, input, listPemain, currentColor);
-                        System.out.println("fungsinya belom ada hehehe");
+                        // discard cards
+                        boolean isMultipleDiscard = false;
+                        boolean timeForPower = false;
+                        int numDiscarded = 0;
+                        String option = "";
+                        boolean gakJadi = false;
+                        System.out.println("Current Card: " + curCard.getType());
+                        System.out.println("Current Color: " + currentColor.getColor());
+                        loop:
+                        while(!isMultipleDiscard){  
+                            System.out.println("Masukkan kartu yang ingin kamu mainkan: ");
+                            curPlayer.getPlayerCards().showListCards(); //ngeprint list kartu
+                            int pilihan = input.nextInt();
+                            while (pilihan > curPlayer.getTotalPlayerCards() || pilihan < 1){
+                                System.out.println("Range pilihan tidak valid! Masukkan pilihan lagi: ");
+                                pilihan = input.nextInt();
+                            }
+                            discardedCard = curPlayer.getPlayerCards().getCard(pilihan-1);
+                            System.out.println("Kartu sekarang: " + curCard.getType());
+                            System.out.println("Kartu yang dipilih: " + discardedCard.getType());
+                            
+                            if(!game.isCardValidNonMultipleDiscard(curCard, discardedCard, currentColor)){
+                                System.out.println("Kartu yang kamu pilih tidak valid!");
+                            } else {
+                                numDiscarded += 1;
+                                curCard = discardedCard; // ngeliat paling atas di discarded pile
+                                curPlayer.getPlayerCards().discardByIndex(pilihan-1);
+                                System.out.println("Kartu berhasil di discard!");
+                                currentColor = new Color(discardedCard.getColor());
+                            }
+                            System.out.println("Apakah kamu ingin mengeluarkan kartu lagi? (y/n): ");
+                            input.nextLine();
+                            option = input.next(); // y/n
+                            if(numDiscarded == 0){
+                                //belum ambil kartu
+                                isMultipleDiscard = false;
+                                gakJadi = true;
+                                break loop;
+                            } else {
+                                if(option.equals("y")){
+                                    isMultipleDiscard = true;
+                                } else {
+                                    timeForPower = true;
+                                    break loop;
+                                }
+                            }
+                        }
+                        loop2:
+                        while(isMultipleDiscard){
+                            // System.out.println("hayoloh masuk multiple");
+                            System.out.println("Masukkan kartu yang ingin kamu mainkan: ");
+                            curPlayer.getPlayerCards().showListCards(); //ngeprint list kartu
+                            int pilihan = input.nextInt();
+                            while (pilihan > curPlayer.getTotalPlayerCards() || pilihan < 1){
+                                System.out.println("Range pilihan tidak valid! Masukkan pilihan lagi: ");
+                                pilihan = input.nextInt();
+                            }
+                            // ArrayListGenerics<Card> cardsToDiscard = new ArrayListGenerics<>();
+                            discardedCard = curPlayer.getPlayerCards().getCard(pilihan-1);
+                            System.out.println(discardedCard.getType());
+                            System.out.println(curCard.getType());
+                            if(!game.isCardValid(curCard, discardedCard, currentColor)){
+                                System.out.println("Kartu yang kamu pilih tidak valid!");
+                            } else {
+                                numDiscarded += 1;
+                                curCard = discardedCard; // ngeliat paling atas di discarded pile
+                                curPlayer.getPlayerCards().discardByIndex(pilihan-1);
+                                System.out.println("Kartu berhasil di discard!");
+                                currentColor = new Color(discardedCard.getColor());
+                            }
+                            System.out.println("Apakah kamu ingin mengeluarkan kartu lagi? (y/n): ");
+                            input.nextLine();
+                            option = input.nextLine(); // y/n
+                            if(option.equals("n")){
+                                isMultipleDiscard = false;
+                                timeForPower = true;
+                                break loop2;
+                            } else {
+                                isMultipleDiscard = true;
+                            }
+                        }
+                        if(numDiscarded < 1 && !isMultipleDiscard){
+                            Card drawedCard;
+                            drawedCard = game.generateRandomCard();
+                            curPlayer.getPlayerCards().addCard(drawedCard);
+                            System.out.println("Kartu kamu bertambah 1!");
+                            System.out.println("Giliran kamu diakhiri !");
+                            curPlayer.setIsNotPlaying();
+                            curPlayer = listPemain.next();
+                            curPlayer.setIsPlaying();
+                            System.out.println("Sekarang yang main adalah " + curPlayer.getNamePlayer());
+                            System.out.println("Masukkan command yang ingin kamu lakukan!");
+                            command = input.next();
+                            //break;
+                        } else {
+                            while(timeForPower){
+                                // System.out.println("Masuk ke bagian sini");
+                                game.clearScreen();
+                                String[] warna = {"RED", "GREEN", "BLUE", "YELLOW"};
+                                curPlayer.setIsNotPlaying();
+                                System.out.println(curCard.getCardType());
+                                if(curCard instanceof Action){
+                                    Action c = (Action) curCard;
+                                    if(c.getAction().equals("DRAW 2")){
+                                        curPlayer = listPemain.next();
+                                        for(int i = 0; i < numDiscarded; i++){
+                                            game.drawTwo(curPlayer);
+                                        }
+                                        curPlayer = listPemain.next();
+                                    } else if(c.getAction().equals("SKIP")){
+                                        for(int i = 0; i < numDiscarded; i++){
+                                            curPlayer = listPemain.skip();
+                                        }    
+                                    } else if(c.getAction().equals("REVERSE")){
+                                        for(int i = 0; i < numDiscarded; i++){
+                                            listPemain.reverseArah();
+                                        }   
+                                        curPlayer = listPemain.next();
+                                    }
+                                } else if (curCard instanceof Special){
+                                    Special c = (Special) curCard;
+                                    if (c.getSpecial().equals("WILDCOLOR")){
+                                        System.out.println("Choose color: ");
+                                        for(int i=0; i < warna.length; i++){
+                                            System.out.println((i+1) + ". "+ warna[i]);
+                                        }
+                                        int pilihan = input.nextInt();
+                                        while(pilihan < 0 || pilihan > warna.length){
+                                            System.out.println("Warna tidak valid, silakan masukkan warna lagi!: ");
+                                            pilihan = input.nextInt();
+                                        }
+                                        currentColor = new Color(warna[pilihan-1]);
+                                        curPlayer = listPemain.next();
+                                    } else if (c.getSpecial().equals("DRAW 4")){
+                                        System.out.println("Choose color: ");
+                                        for(int i=0; i < warna.length; i++){
+                                            System.out.println((i+1) + ". "+ warna[i]);
+                                        }
+                                        int pilihan = input.nextInt();
+                                        while(pilihan < 0 || pilihan > warna.length){
+                                            System.out.println("Warna tidak valid, silakan masukkan warna lagi!: ");
+                                            pilihan = input.nextInt();
+                                        }
+                                        currentColor = new Color(warna[pilihan-1]);
+                                        curPlayer = listPemain.next();
+                                        for(int i = 0; i < numDiscarded; i++){
+                                            game.drawFour(curPlayer);
+                                        }
+                                    }
+                                }else {
+                                    curPlayer = listPemain.next();
+                                }
+                                break;
+
+                        }
+                        
+                        }
+                        // saatnya ganti pemain
+                        curPlayer.setIsPlaying();
+                        System.out.println("Sekarang giliran " + curPlayer.getNamePlayer());
+                        System.out.println("Masukkan perintah menu yang ingin kamu lakukan! kalau lupa ketik (command)");
+                        // game.showCommmands();
+                        command = input.next();
+                        
                     }
     
                     else if (command.toLowerCase().equals("draw") && (isStartGame)){
@@ -109,8 +266,7 @@ public class testAgung {
                         curPlayer = listPemain.next();
                         curPlayer.setIsPlaying();
                         System.out.println("Sekarang yang main adalah " + curPlayer.getNamePlayer());
-
-
+                        System.out.println("Masukkan perintah menu yang ingin kamu lakukan! kalau lupa ketik (command)");
                         command = input.next();
                     }
     
@@ -123,6 +279,7 @@ public class testAgung {
                         curPlayer = listPemain.next();
                         curPlayer.setIsPlaying();
                         System.out.println("Sekarang yang main adalah " + curPlayer.getNamePlayer());
+                        System.out.println("Masukkan perintah menu yang ingin kamu lakukan! kalau lupa ketik (command)");
                         command = input.next();
                     }
 
@@ -138,6 +295,7 @@ public class testAgung {
                                 System.out.println(" ");
                             }
                         }
+                        System.out.println("Masukkan perintah menu yang ingin kamu lakukan! kalau lupa ketik (command)");
                         command = input.next();
                     }
                     
@@ -151,24 +309,33 @@ public class testAgung {
                                     System.out.println("Player selanjutnya: " + players.get((i-1 + players.size()) % players.size()).getNamePlayer());
                                 }
                             } else {
-                
                             }
                         }
-                        
+                        System.out.println("Masukkan perintah menu yang ingin kamu lakukan! kalau lupa ketik (command)");
                         command = input.next();
                     }
 
                     else if (command.toLowerCase().equals("help")){
                         Game.help();
+                        System.out.println("Masukkan perintah menu yang ingin kamu lakukan! kalau lupa ketik (command)");
+                        command = input.next();
+                    }
+                    
+                    else if (command.toLowerCase().equals("command")){
+                        game.showCommmands2();
+                        System.out.println("Masukkan perintah menu yang ingin kamu lakukan! kalau lupa ketik (command)");
                         command = input.next();
                     }
                     //command = input.next();
 
                 }
-                System.out.println("kamu yakin keluar permainan ?");
-                command = input.next();
+                System.out.println("Yahh kamu sudah mekahiri permainan.");
                 
             }
+            System.out.println("1. START");
+            System.out.println("2. HELP");
+            System.out.println("3. EXIT");
+            command = input.next();
         }
         System.out.println("Terimakasih sudah bermain HIJI bersama OOPah Koriya!");
         
